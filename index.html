@@ -26,7 +26,9 @@ function resize() {
   canvas.width = width * dpr;
   canvas.height = height * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  scale = Math.min(width, height) / 1000;
+  // Slow particles on smaller viewports; mobile (<768) is further halved.
+  const base = Math.min(width, height) / 1000;
+  scale = width < 768 ? base * 0.5 : base;
 }
 
 // Nouma brand palette - deep navy to cobalt blue (stronger)
@@ -227,10 +229,8 @@ function drawConnections(particles) {
           const cb = Math.round((a.color.b + b.color.b) / 2);
 
           ctx.beginPath();
-          const midX = (a.x + b.x) / 2 + (Math.random() - 0.5) * 5;
-          const midY = (a.y + b.y) / 2 + (Math.random() - 0.5) * 5;
           ctx.moveTo(a.x, a.y);
-          ctx.quadraticCurveTo(midX, midY, b.x, b.y);
+          ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${alpha})`;
           ctx.lineWidth = boost > 0.02 ? 1 : 0.4;
           ctx.stroke();
