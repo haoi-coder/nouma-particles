@@ -16,6 +16,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let width, height, dpr;
+let scale = 1;
 let mouse = { x: -9999, y: -9999, active: false, prevX: -9999, prevY: -9999, speed: 0 };
 
 function resize() {
@@ -24,7 +25,8 @@ function resize() {
   height = window.innerHeight;
   canvas.width = width * dpr;
   canvas.height = height * dpr;
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  scale = Math.min(width, height) / 1000;
 }
 
 // Nouma brand palette - deep navy to cobalt blue (stronger)
@@ -46,8 +48,8 @@ class FluidParticle {
   reset() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
-    this.vx = (Math.random() - 0.5) * 0.3;
-    this.vy = (Math.random() - 0.5) * 0.3;
+    this.vx = (Math.random() - 0.5) * 0.3 * scale;
+    this.vy = (Math.random() - 0.5) * 0.3 * scale;
     this.size = Math.random() * 4 + 1;
     this.baseSize = this.size;
     this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
@@ -71,8 +73,8 @@ class FluidParticle {
     const ny = Math.cos(this.noiseOffsetX + time * this.noiseSpeed * 0.8) *
                Math.sin(this.noiseOffsetY + time * this.noiseSpeed * 0.6);
 
-    this.vx += nx * 0.008;
-    this.vy += ny * 0.008;
+    this.vx += nx * 0.008 * scale;
+    this.vy += ny * 0.008 * scale;
 
     if (mouse.active) {
       const dx = this.x - mouse.x;
@@ -88,12 +90,12 @@ class FluidParticle {
         const swirlForce = norm * 0.06;
         const pushForce = norm * norm * 0.04;
 
-        this.vx += Math.cos(angle + Math.PI * 0.6) * swirlForce + dx / dist * pushForce;
-        this.vy += Math.sin(angle + Math.PI * 0.6) * swirlForce + dy / dist * pushForce;
+        this.vx += (Math.cos(angle + Math.PI * 0.6) * swirlForce + dx / dist * pushForce) * scale;
+        this.vy += (Math.sin(angle + Math.PI * 0.6) * swirlForce + dy / dist * pushForce) * scale;
 
         if (mouse.speed > 3 && dist < 100) {
-          this.vx += (Math.random() - 0.5) * mouse.speed * 0.02;
-          this.vy += (Math.random() - 0.5) * mouse.speed * 0.02;
+          this.vx += (Math.random() - 0.5) * mouse.speed * 0.02 * scale;
+          this.vy += (Math.random() - 0.5) * mouse.speed * 0.02 * scale;
         }
 
         this.size = this.baseSize * (1 + norm * 2.5);
@@ -159,7 +161,7 @@ class InkSplatter {
     const count = 15 + Math.floor(Math.random() * 10);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 4 + 1;
+      const speed = (Math.random() * 4 + 1) * scale;
       const color = PALETTE[Math.floor(Math.random() * 5)];
       this.particles.push({
         x, y,
