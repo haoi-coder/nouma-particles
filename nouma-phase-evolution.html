@@ -319,35 +319,84 @@
     background: linear-gradient(transparent 70%, rgba(11,31,58,0.08) 70%);
     padding: 0 2px;
   }
-  .modal-support-list {
-    list-style: none; padding: 0; margin: 0;
+  /* ===== Support icon grid ===== */
+  .modal-support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
   }
-  .modal-support-list li {
-    padding: 16px 0 16px 26px;
-    position: relative;
-    border-bottom: 1px solid var(--hair);
+  .sup-card {
+    background: rgba(11,31,58,0.025);
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+    padding: 20px 18px;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
-  .modal-support-list li:last-child { border-bottom: none; }
-  .modal-support-list li::before {
-    content: '';
-    position: absolute; left: 0; top: 22px;
-    width: 14px; height: 1px;
-    background: var(--navy);
+  .sup-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--navy);
+    box-shadow: 0 6px 18px rgba(11,31,58,0.08);
   }
-  .modal-support-list .sup-title {
-    font-size: clamp(14px, 1.05vw, 16px);
+  .sup-icon {
+    width: 36px; height: 36px;
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sup-icon svg { width: 100%; height: 100%; }
+  .sup-title {
+    font-size: clamp(13px, 1vw, 15px);
     font-weight: 600;
     color: var(--navy);
     letter-spacing: 0.04em;
-    line-height: 1.5;
-    display: block;
-    margin-bottom: 4px;
+    line-height: 1.45;
   }
-  .modal-support-list .sup-desc {
-    font-size: clamp(12px, 0.92vw, 13.5px);
+  .sup-desc {
+    font-size: clamp(11.5px, 0.85vw, 13px);
     color: var(--ink);
-    line-height: 1.8;
-    letter-spacing: 0.03em;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== Plan badge (top-right) ===== */
+  .plan-badge {
+    position: absolute;
+    top: 28px; right: 72px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    z-index: 5;
+    border: 1px solid var(--navy);
+    background: #fff;
+  }
+  .plan-badge.is-free {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+  }
+  .plan-badge .plan-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--navy);
+  }
+  .plan-badge.is-free .plan-label { color: #fff; }
+  .plan-badge .plan-sub {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--subt);
+    text-transform: uppercase;
+    border-left: 1px solid var(--hair);
+    padding-left: 10px;
+  }
+  .plan-badge.is-free .plan-sub {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.3);
   }
 
   footer.foot {
@@ -461,7 +510,7 @@
     .detail-text br { display: none; }
 
     /* モーダル：モバイル用 */
-    .modal { padding: 56px 20px 28px; justify-content: flex-start; }
+    .modal { padding: 80px 18px 28px; justify-content: flex-start; }
     .modal-inner { max-width: 100%; }
     .modal-num { font-size: 10px; margin-bottom: 8px; }
     .modal-title { font-size: 20px; margin-bottom: 6px; }
@@ -470,8 +519,13 @@
     .modal-label { font-size: 10px; margin-bottom: 8px; }
     .modal-body { font-size: 13.5px; line-height: 1.85; }
     .modal-body br { display: none; }
-    .modal-support-list li { font-size: 13px; padding: 8px 0 8px 20px; }
+    .modal-support-grid { grid-template-columns: 1fr; gap: 10px; }
+    .sup-card { padding: 14px 14px; }
+    .sup-icon { width: 28px; height: 28px; }
     .modal-close { top: 12px; right: 12px; width: 32px; height: 32px; font-size: 20px; }
+    .plan-badge { top: 14px; left: 14px; right: auto; padding: 8px 14px; }
+    .plan-badge .plan-label { font-size: 12px; }
+    .plan-badge .plan-sub { font-size: 9px; padding-left: 8px; }
   }
 
   /* タブレット中間サイズ */
@@ -517,6 +571,7 @@
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal" id="modal">
     <button class="modal-close" id="modalClose" aria-label="閉じる">×</button>
+    <div class="plan-badge" id="modalPlan"></div>
     <div class="modal-inner">
       <div class="modal-num" id="modalNum"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
@@ -527,7 +582,7 @@
       </div>
       <div class="modal-section">
         <div class="modal-label">Nouma の支援</div>
-        <ul class="modal-support-list" id="modalSupport"></ul>
+        <div class="modal-support-grid" id="modalSupport"></div>
       </div>
     </div>
   </div>
@@ -542,58 +597,81 @@ const STAGES = [
     num: '00', ket: '|0⟩', name: 'Manual', ja: '属人業務',
     sub: 'As-is ／ 属人化フェーズ',
     body: 'メンバーはバラバラに散らばり、<span class="k">それぞれのミッション、ノウハウ、業務</span>を行う。',
+    plan: { label: '無料', sub: 'FREE', isFree: true },
     support: [
-      { t: '業務インタビュー・棚卸し', d: '現場メンバーへの1on1ヒアリングで、各人が担う業務・判断基準・暗黙知を網羅的に可視化します。' },
-      { t: '属人化マップの作成', d: '誰が何を担い、抜けるとどこが止まるかをマトリクスで整理。リスク箇所を特定します。' },
-      { t: '現場課題の言語化と整理', d: '抽象的な「なんとなく回らない」状態を、具体的な課題リストへ変換。打ち手の議論ができる状態にします。' },
-      { t: '改善優先度の見極め', d: '影響度 × 頻度 × 解消難度でスコアリングし、最初に着手すべき領域とロードマップを提示します。' }
+      { t: '属人化マップの作成', d: '誰が何を担い、抜けると止まる箇所をマトリクスで可視化', icon: 'map' },
+      { t: '現場課題の言語化', d: '抽象的な"回らない"を具体的な課題リストへ変換', icon: 'doc' },
+      { t: '改善優先度の設計', d: '影響度×頻度×解消難度でスコアリング、ロードマップ提示', icon: 'chart' }
     ]
   },
   {
     num: '01', ket: '|1⟩', name: 'Standard', ja: '標準化',
     sub: 'Standardization ／ 標準化',
     body: '業務フロー・役割・判断基準を整え、<span class="k">同じミッションで動く</span>ようになる。組織としてまとまり始める。',
+    plan: { label: 'Basic Plan', sub: '標準プラン', isFree: false },
     support: [
-      { t: '業務SOP・プレイブックの整備', d: '主要業務フローを文書化し、新メンバーが短期間で習得できるレベルまで言語化します。' },
-      { t: '役割定義・RACI設計', d: '全業務をR/A/C/Iで割り振り、責任の重複や空白を解消。誰がオーナーかを明確にします。' },
-      { t: 'KPIと判断基準の再設計', d: '各役割の評価指標と意思決定基準を再定義し、ダッシュボード化して常時可視化します。' },
-      { t: '例外運用と現場定着の伴走', d: 'イレギュラー時のエスカレーションルールを整備。仕組みが現場で回るまで継続伴走します。' }
+      { t: '業務SOP・プレイブック整備', d: '主要フローを文書化、短期間で習得可能なレベルに言語化', icon: 'doc' },
+      { t: '役割定義・RACI設計', d: '責任の重複・空白を解消、オーナーを明確化', icon: 'people' },
+      { t: 'KPIと判断基準の再設計', d: '評価指標を定義しダッシュボードで常時可視化', icon: 'dashboard' },
+      { t: '例外運用と現場定着の伴走', d: 'エスカレーションルール整備、定着まで継続伴走', icon: 'shield' }
     ]
   },
   {
     num: '02', ket: '|2⟩', name: 'DX / AX', ja: '業務基盤の再設計',
     sub: 'Re-architecture ／ 業務基盤の再設計',
     body: 'デジタル基盤・ツール・データという<span class="k">別のサポート</span>が生まれ、既存の組織と接続される。<br>人間とデジタルの異なる二つのものが、一つの組織として動き始める。',
+    plan: { label: 'Advanced Plan', sub: 'アドバンスプラン', isFree: false },
     support: [
-      { t: 'SaaS・ツールの選定と導入', d: '業務要件から最適なツール候補を比較選定。契約交渉から現場定着まで一貫支援します。' },
-      { t: 'データ基盤の設計と構築', d: 'BigQuery等のDWH設計、業務データの構造化、BIツール連携で意思決定の土台を整えます。' },
-      { t: '業務システム統合のPM支援', d: '各SaaS間連携、iPaaS活用、API設計のプロジェクトマネジメントを兼務で推進します。' },
-      { t: 'デジタル業務フローの再構築', d: '紙やExcel依存の業務をWebアプリ・SaaS上へ移行。現場の使い勝手まで設計します。' }
+      { t: 'SaaS・ツール選定／導入', d: '業務要件からの選定、契約交渉、現場定着まで一貫支援', icon: 'tool' },
+      { t: 'データ基盤の設計・構築', d: 'DWH設計、データ構造化、BI連携で意思決定の土台を整備', icon: 'database' },
+      { t: '業務システム統合のPM', d: 'SaaS連携、iPaaS活用、API設計のPMを兼務で推進', icon: 'connect' },
+      { t: 'デジタル業務フロー再構築', d: '紙/Excel依存業務をWebアプリ・SaaSへ移行', icon: 'flow' }
     ]
   },
   {
     num: '03', ket: '|3⟩', name: 'AI', ja: 'AI活用',
     sub: 'AI Implementation ／ AI活用',
     body: '統合された事業や組織の中にAIが入り込み、<span class="k">判断・生成・予測</span>が業務フローに織り込まれる。<br>事業や組織同士の結合が密になっていく。',
+    plan: { label: 'AI Plan', sub: 'AIプラン', isFree: false },
     support: [
-      { t: 'AI／MCPオーケストレーション設計', d: '業務にAIエージェントとMCPサーバーを組み込む全体アーキテクチャを設計します。' },
-      { t: '業務AIエージェントの実装', d: '営業・カスタマーサクセス・バックオフィス等、業務固有のAIエージェントを開発・接続します。' },
-      { t: 'PoCから本番運用への移行支援', d: '小さな実証から本番稼働、運用監視まで継続伴走。机上の検証で終わらせません。' },
-      { t: '人とAIの協働モデル設計', d: '何をAIに任せ、何を人が判断するか。境界線設計と組織変革をセットで進めます。' }
+      { t: 'AI/MCPオーケストレーション設計', d: 'AIエージェント＋MCPサーバーの全体アーキテクチャ設計', icon: 'ai' },
+      { t: '業務AIエージェント実装', d: '営業・CS・バックオフィスの業務固有AIエージェント開発', icon: 'robot' },
+      { t: 'PoC→本番運用への移行', d: '小さな実証から本番稼働、運用監視まで継続伴走', icon: 'launch' },
+      { t: '人×AI 協働モデル設計', d: 'AIと人の境界線設計＋組織変革をセットで推進', icon: 'sync' }
     ]
   },
   {
     num: '04', ket: '|4⟩', name: 'RevOps', ja: '事業横断推進',
     sub: 'Aligned State ／ 事業横断推進',
     body: '部分的な個別最適から<span class="k">全体最適</span>へ。事業全体がひとつになり同じ位相で連動する状態を実現。<br>スピーディーで自律的なリテール組織を形成します。',
+    plan: { label: 'Enterprise', sub: 'エンタープライズプラン', isFree: false },
     support: [
-      { t: 'RevOps体制の設計', d: '営業・マーケ・CSを統合運営する体制を設計。責任者の役割と運営リズムを定義します。' },
-      { t: '全社データ統合運用', d: '各部門のSaaSデータを一元化し、リアルタイムで意思決定できる経営ダッシュボードを構築します。' },
-      { t: '部門横断KPIの設計', d: '部門最適から全社最適へ。共通KPIと評価制度を再設計し、組織のベクトルを揃えます。' },
-      { t: '継続的な改善と伴走支援', d: '月次レビュー・四半期戦略会議に同席し、PDCAを共に回す長期パートナーとして並走します。' }
+      { t: 'RevOps体制の設計', d: '営業・マーケ・CSを統合運営する体制と役割を定義', icon: 'people' },
+      { t: '全社データ統合運用', d: '各部門SaaSデータを一元化、経営ダッシュボード構築', icon: 'dashboard' },
+      { t: '部門横断KPIの設計', d: '部門最適から全社最適へ、共通KPIと評価制度を再設計', icon: 'chart' },
+      { t: '継続的改善・伴走支援', d: '月次/四半期会議に同席、PDCAを共に回す長期パートナー', icon: 'growth' }
     ]
   }
 ];
+
+/* ===== SVG icon set ===== */
+const ICONS = {
+  map: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><circle cx="24" cy="10" r="2.5"/><circle cx="10" cy="24" r="2.5"/><circle cx="22" cy="22" r="2.5"/><path d="M10.5 8.5L21.5 10M9.5 10.5L10 21.5M11 23L21 22M23.5 12L22.5 19.5" stroke-opacity="0.4"/></svg>',
+  doc: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5h12l4 4v18H8z"/><path d="M20 5v4h4M11 14h10M11 18h10M11 22h7"/></svg>',
+  chart: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 26h22"/><rect x="8" y="18" width="4" height="8"/><rect x="14" y="12" width="4" height="14"/><rect x="20" y="6" width="4" height="20"/></svg>',
+  people: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="3.5"/><circle cx="21" cy="11" r="3.5"/><path d="M5 25c0-3.5 3-6 6-6s6 2.5 6 6M15 25c0-3.5 3-6 6-6s6 2.5 6 6"/></svg>',
+  dashboard: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="6" width="22" height="20" rx="1"/><path d="M5 12h22M10 18v4M16 16v6M22 20v2"/></svg>',
+  shield: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 4l10 4v8c0 6-4 10-10 12-6-2-10-6-10-12V8z"/><path d="M12 16l3 3 6-6"/></svg>',
+  tool: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="3"/><path d="M16 5v4M16 23v4M5 16h4M23 16h4M8.5 8.5l3 3M20.5 20.5l3 3M8.5 23.5l3-3M20.5 11.5l3-3"/></svg>',
+  database: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="16" cy="8" rx="9" ry="3"/><path d="M7 8v8c0 1.7 4 3 9 3s9-1.3 9-3V8M7 16v8c0 1.7 4 3 9 3s9-1.3 9-3v-8"/></svg>',
+  connect: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="3"/><circle cx="23" cy="9" r="3"/><circle cx="9" cy="23" r="3"/><circle cx="23" cy="23" r="3"/><path d="M12 9h8M9 12v8M23 12v8M12 23h8"/></svg>',
+  flow: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="6" width="8" height="6" rx="1"/><rect x="20" y="6" width="8" height="6" rx="1"/><rect x="4" y="20" width="8" height="6" rx="1"/><rect x="20" y="20" width="8" height="6" rx="1"/><path d="M12 9h8M12 23h8M8 12v8M24 12v8"/></svg>',
+  ai: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3"/><path d="M16 6v3M16 23v3M6 16h3M23 16h3M9 9l2 2M21 21l2 2M9 23l2-2M21 11l2-2"/></svg>',
+  robot: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="10" width="18" height="16" rx="2"/><circle cx="12" cy="17" r="1.5" fill="currentColor"/><circle cx="20" cy="17" r="1.5" fill="currentColor"/><path d="M14 22h4M16 6v4M12 6h8"/></svg>',
+  launch: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 4l8 8-8 14-8-14z"/><circle cx="16" cy="13" r="2"/><path d="M11 26l-2 2M21 26l2 2M16 26v3"/></svg>',
+  sync: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12c2-4 6-6 10-6 3 0 6 1 8 4M26 20c-2 4-6 6-10 6-3 0-6-1-8-4"/><path d="M22 6v6h6M10 26v-6H4"/></svg>',
+  growth: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 24L13 16l5 5L27 8"/><path d="M21 8h6v6"/></svg>'
+};
 
 let active = 1;
 
@@ -647,10 +725,19 @@ function openModal(i) {
   const sup = document.getElementById('modalSupport');
   sup.innerHTML = '';
   s.support.forEach(item => {
-    const li = document.createElement('li');
-    li.innerHTML = `<span class="sup-title">${item.t}</span><span class="sup-desc">${item.d}</span>`;
-    sup.appendChild(li);
+    const card = document.createElement('div');
+    card.className = 'sup-card';
+    card.innerHTML = `
+      <div class="sup-icon">${ICONS[item.icon] || ''}</div>
+      <div class="sup-title">${item.t}</div>
+      <div class="sup-desc">${item.d}</div>
+    `;
+    sup.appendChild(card);
   });
+  // プランバッジ
+  const planEl = document.getElementById('modalPlan');
+  planEl.className = 'plan-badge' + (s.plan.isFree ? ' is-free' : '');
+  planEl.innerHTML = `<span class="plan-label">${s.plan.label}</span><span class="plan-sub">${s.plan.sub}</span>`;
   modalBackdrop.classList.add('open');
   modalBackdrop.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
