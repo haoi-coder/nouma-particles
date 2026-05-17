@@ -67,15 +67,18 @@
   }
   .lead h1 {
     margin: 0;
-    font-size: clamp(16px, 1.6vw, 22px);
+    font-size: clamp(15px, 1.5vw, 21px);
     font-weight: 600; color: var(--navy);
-    letter-spacing: 0.05em; line-height: 1.5;
+    letter-spacing: 0.03em; line-height: 1.55;
     text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    padding: 0 8px;
   }
   /* レスポンシブ改行制御 */
   .br-sm, .br-md { display: none; }
-  @media (max-width: 768px) { .br-md { display: inline; } }
-  @media (max-width: 480px) { .br-sm { display: inline; } }
+  @media (max-width: 900px) { .br-md { display: inline; } }
+  @media (max-width: 540px) { .br-sm { display: inline; } }
   .lead p {
     margin: 0;
     font-size: clamp(11px, 0.95vw, 13px);
