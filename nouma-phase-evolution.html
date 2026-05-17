@@ -323,17 +323,31 @@
     list-style: none; padding: 0; margin: 0;
   }
   .modal-support-list li {
-    font-size: clamp(13px, 1vw, 15px);
-    color: var(--ink); line-height: 1.7;
-    padding: 10px 0 10px 22px;
+    padding: 16px 0 16px 26px;
     position: relative;
     border-bottom: 1px solid var(--hair);
   }
   .modal-support-list li:last-child { border-bottom: none; }
   .modal-support-list li::before {
-    content: '›';
-    position: absolute; left: 0; top: 10px;
-    color: var(--navy); font-weight: 600;
+    content: '';
+    position: absolute; left: 0; top: 22px;
+    width: 14px; height: 1px;
+    background: var(--navy);
+  }
+  .modal-support-list .sup-title {
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .modal-support-list .sup-desc {
+    font-size: clamp(12px, 0.92vw, 13.5px);
+    color: var(--ink);
+    line-height: 1.8;
+    letter-spacing: 0.03em;
   }
 
   footer.foot {
@@ -528,31 +542,56 @@ const STAGES = [
     num: '00', ket: '|0⟩', name: 'Manual', ja: '属人業務',
     sub: 'As-is ／ 属人化フェーズ',
     body: 'メンバーはバラバラに散らばり、<span class="k">それぞれのミッション、ノウハウ、業務</span>を行う。',
-    support: ['業務インタビュー・棚卸し', '属人化マップの作成', '現場課題の言語化と整理', '改善優先度の見極め']
+    support: [
+      { t: '業務インタビュー・棚卸し', d: '現場メンバーへの1on1ヒアリングで、各人が担う業務・判断基準・暗黙知を網羅的に可視化します。' },
+      { t: '属人化マップの作成', d: '誰が何を担い、抜けるとどこが止まるかをマトリクスで整理。リスク箇所を特定します。' },
+      { t: '現場課題の言語化と整理', d: '抽象的な「なんとなく回らない」状態を、具体的な課題リストへ変換。打ち手の議論ができる状態にします。' },
+      { t: '改善優先度の見極め', d: '影響度 × 頻度 × 解消難度でスコアリングし、最初に着手すべき領域とロードマップを提示します。' }
+    ]
   },
   {
     num: '01', ket: '|1⟩', name: 'Standard', ja: '標準化',
     sub: 'Standardization ／ 標準化',
     body: '業務フロー・役割・判断基準を整え、<span class="k">同じミッションで動く</span>ようになる。組織としてまとまり始める。',
-    support: ['業務SOP・プレイブックの整備', '役割定義・RACI設計', 'KPIと判断基準の再設計', 'オペレーション標準化の伴走']
+    support: [
+      { t: '業務SOP・プレイブックの整備', d: '主要業務フローを文書化し、新メンバーが短期間で習得できるレベルまで言語化します。' },
+      { t: '役割定義・RACI設計', d: '全業務をR/A/C/Iで割り振り、責任の重複や空白を解消。誰がオーナーかを明確にします。' },
+      { t: 'KPIと判断基準の再設計', d: '各役割の評価指標と意思決定基準を再定義し、ダッシュボード化して常時可視化します。' },
+      { t: '例外運用と現場定着の伴走', d: 'イレギュラー時のエスカレーションルールを整備。仕組みが現場で回るまで継続伴走します。' }
+    ]
   },
   {
     num: '02', ket: '|2⟩', name: 'DX / AX', ja: '業務基盤の再設計',
     sub: 'Re-architecture ／ 業務基盤の再設計',
     body: 'デジタル基盤・ツール・データという<span class="k">別のサポート</span>が生まれ、既存の組織と接続される。<br>人間とデジタルの異なる二つのものが、一つの組織として動き始める。',
-    support: ['SaaS・ツールの選定と導入', 'データ基盤の設計と構築', '業務システム統合のPM支援', 'デジタル業務フローの再構築']
+    support: [
+      { t: 'SaaS・ツールの選定と導入', d: '業務要件から最適なツール候補を比較選定。契約交渉から現場定着まで一貫支援します。' },
+      { t: 'データ基盤の設計と構築', d: 'BigQuery等のDWH設計、業務データの構造化、BIツール連携で意思決定の土台を整えます。' },
+      { t: '業務システム統合のPM支援', d: '各SaaS間連携、iPaaS活用、API設計のプロジェクトマネジメントを兼務で推進します。' },
+      { t: 'デジタル業務フローの再構築', d: '紙やExcel依存の業務をWebアプリ・SaaS上へ移行。現場の使い勝手まで設計します。' }
+    ]
   },
   {
     num: '03', ket: '|3⟩', name: 'AI', ja: 'AI活用',
     sub: 'AI Implementation ／ AI活用',
     body: '統合された事業や組織の中にAIが入り込み、<span class="k">判断・生成・予測</span>が業務フローに織り込まれる。<br>事業や組織同士の結合が密になっていく。',
-    support: ['AI／MCPオーケストレーション設計', '業務AIエージェントの実装', 'PoCから本番運用への移行支援', '人とAIの協働モデル設計']
+    support: [
+      { t: 'AI／MCPオーケストレーション設計', d: '業務にAIエージェントとMCPサーバーを組み込む全体アーキテクチャを設計します。' },
+      { t: '業務AIエージェントの実装', d: '営業・カスタマーサクセス・バックオフィス等、業務固有のAIエージェントを開発・接続します。' },
+      { t: 'PoCから本番運用への移行支援', d: '小さな実証から本番稼働、運用監視まで継続伴走。机上の検証で終わらせません。' },
+      { t: '人とAIの協働モデル設計', d: '何をAIに任せ、何を人が判断するか。境界線設計と組織変革をセットで進めます。' }
+    ]
   },
   {
     num: '04', ket: '|4⟩', name: 'RevOps', ja: '事業横断推進',
     sub: 'Aligned State ／ 事業横断推進',
     body: '部分的な個別最適から<span class="k">全体最適</span>へ。事業全体がひとつになり同じ位相で連動する状態を実現。<br>スピーディーで自律的なリテール組織を形成します。',
-    support: ['RevOps体制の設計', '全社データ統合運用', '部門横断KPIの設計', '継続的な改善と伴走支援']
+    support: [
+      { t: 'RevOps体制の設計', d: '営業・マーケ・CSを統合運営する体制を設計。責任者の役割と運営リズムを定義します。' },
+      { t: '全社データ統合運用', d: '各部門のSaaSデータを一元化し、リアルタイムで意思決定できる経営ダッシュボードを構築します。' },
+      { t: '部門横断KPIの設計', d: '部門最適から全社最適へ。共通KPIと評価制度を再設計し、組織のベクトルを揃えます。' },
+      { t: '継続的な改善と伴走支援', d: '月次レビュー・四半期戦略会議に同席し、PDCAを共に回す長期パートナーとして並走します。' }
+    ]
   }
 ];
 
@@ -609,7 +648,7 @@ function openModal(i) {
   sup.innerHTML = '';
   s.support.forEach(item => {
     const li = document.createElement('li');
-    li.textContent = item;
+    li.innerHTML = `<span class="sup-title">${item.t}</span><span class="sup-desc">${item.d}</span>`;
     sup.appendChild(li);
   });
   modalBackdrop.classList.add('open');
