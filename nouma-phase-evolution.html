@@ -41,10 +41,9 @@
     position: relative; z-index: 2;
     width: 100%; height: 100%;
     display: grid;
-    /* ①リード ②粒子エリア(1fr) ③phase-caption ④カード行 ⑤詳細 */
-    grid-template-rows: auto minmax(180px, 1fr) auto auto auto;
-    gap: clamp(8px, 1.2vh, 14px);
-    padding: clamp(16px, 2vw, 28px) clamp(20px, 3vw, 48px) clamp(14px, 2vw, 24px);
+    grid-template-rows: auto minmax(160px, 1fr) auto auto auto;
+    gap: clamp(4px, 0.6vh, 8px);
+    padding: clamp(10px, 1.4vw, 18px) clamp(20px, 3vw, 48px) clamp(10px, 1.4vw, 16px);
     pointer-events: none;
   }
   .frame > * { pointer-events: auto; }
@@ -119,8 +118,8 @@
     font-size: 10px; letter-spacing: 0.28em; color: var(--subt);
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: clamp(10px, 1.5vh, 16px);
-    padding-top: clamp(8px, 1.2vh, 14px);
+    margin-bottom: 0;
+    padding-top: 6px;
     border-top: 1px solid var(--hair);
   }
   .phase-caption b { color: var(--navy); font-weight: 600; }
@@ -129,7 +128,7 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
-    margin-top: clamp(12px, 1.8vh, 20px);
+    margin-top: 8px;
     gap: 8px;
   }
   .stages .stage { flex: 1 1 0; min-width: 0; }
@@ -831,11 +830,11 @@ function drawScene(now) {
 
   sctx.clearRect(0, 0, SW, SH);
 
-  // 粒子の活動領域 = canvas全体（カードは別エリアなので最大限使う）
-  const BOX_LEFT   = SW * 0.03;
-  const BOX_RIGHT  = SW * 0.97;
-  const BOX_TOP    = SH * 0.04;
-  const BOX_BOTTOM = SH * 0.96;
+  // 粒子の活動領域 = canvas全体に最大限広げる
+  const BOX_LEFT   = SW * 0.02;
+  const BOX_RIGHT  = SW * 0.98;
+  const BOX_TOP    = SH * 0.01;
+  const BOX_BOTTOM = SH * 0.99;
   const boxW = BOX_RIGHT - BOX_LEFT;
   const boxH = BOX_BOTTOM - BOX_TOP;
   const cx = (BOX_LEFT + BOX_RIGHT) / 2;
