@@ -1145,18 +1145,20 @@ document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
 });
 
-/* カード本体クリック：
+/* カード全体クリック：
    - デスクトップ → setActive + モーダル展開（既存UX維持）
    - スマホ（touch） → プレビュー（setActive）のみ、モーダルは開かない */
-document.querySelectorAll('.stage .stage-body').forEach(el => {
+document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('click', (e) => {
-    const i = +el.closest('.stage').dataset.idx;
+    // 「詳細を見る」ボタンは別ハンドラに任せる
+    if (e.target.closest('.stage-detail-btn')) return;
+    const i = +el.dataset.idx;
     setActive(i);
     if (!IS_TOUCH) openModal(i);
   });
 });
 
-/* 「詳細を見る」ボタン：どの端末でもモーダル展開 */
+/* 「詳細を見る」ボタン（個別カード内）：どの端末でもモーダル展開 */
 document.querySelectorAll('.stage-detail-btn').forEach(el => {
   el.addEventListener('click', (e) => {
     e.stopPropagation();
