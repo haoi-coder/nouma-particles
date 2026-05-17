@@ -1107,15 +1107,18 @@ document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
 });
 
-/* カード本体タップ：プレビューのみ（モーダルは開かない） */
+/* カード本体クリック：
+   - デスクトップ → setActive + モーダル展開（既存UX維持）
+   - スマホ（touch） → プレビュー（setActive）のみ、モーダルは開かない */
 document.querySelectorAll('.stage .stage-body').forEach(el => {
   el.addEventListener('click', (e) => {
     const i = +el.closest('.stage').dataset.idx;
     setActive(i);
+    if (!IS_TOUCH) openModal(i);
   });
 });
 
-/* 「詳細を見る」ボタンタップ：モーダルを開く */
+/* 「詳細を見る」ボタン：どの端末でもモーダル展開 */
 document.querySelectorAll('.stage-detail-btn').forEach(el => {
   el.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -1124,20 +1127,6 @@ document.querySelectorAll('.stage-detail-btn').forEach(el => {
     openModal(i);
   });
 });
-
-/* デスクトップ：カード全体クリックでモーダル（hover環境のみ） */
-if (!IS_TOUCH) {
-  document.querySelectorAll('.stage').forEach(el => {
-    el.addEventListener('click', (e) => {
-      // ボタン領域は除外
-      if (e.target.closest('.stage-detail-btn')) return;
-      if (e.target.closest('.stage-body')) return; // body の click ハンドラに任せる
-      const i = +el.dataset.idx;
-      setActive(i);
-      openModal(i);
-    });
-  });
-}
 
 /* ===== Modal ===== */
 const modalBackdrop = document.getElementById('modalBackdrop');
