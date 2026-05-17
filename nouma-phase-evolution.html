@@ -175,17 +175,42 @@
     background: #fff;
     box-shadow: 0 4px 16px rgba(11,31,58,0.15);
   }
-  .stage::after {
-    content: '詳細を見る ›';
-    display: block;
-    margin-top: 10px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--subt);
-    opacity: 0;
-    transition: opacity .3s;
+  /* カード本体エリア */
+  .stage-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
   }
-  .stage:hover::after, .stage.active::after { opacity: 1; color: var(--navy); }
+  /* 詳細ボタン（カード内専用） */
+  .stage-detail-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--hair);
+    color: var(--subt);
+    padding: 6px 14px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    font-family: inherit;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 10px;
+    opacity: 0;
+    transition: all .3s;
+    align-self: center;
+    flex-shrink: 0;
+  }
+  .stage:hover .stage-detail-btn,
+  .stage.active .stage-detail-btn {
+    opacity: 1;
+    color: var(--navy);
+    border-color: var(--navy);
+  }
+  .stage-detail-btn:hover {
+    background: var(--navy);
+    color: #fff;
+  }
   .stage .num {
     font-size: 10px; letter-spacing: 0.32em; color: var(--subt); text-transform: uppercase;
     margin-bottom: 6px;
@@ -698,32 +723,48 @@
       margin-bottom: 12px;
     }
 
-    /* ステージカード：2カラムでスタック表示（モバイルでは矢印非表示） */
+    /* スマホ：1列縦並びカード（スクロール優先） */
     .stages {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       margin-top: 8px;
     }
     .stage-arrow { display: none; }
     .stage {
-      padding: 18px 10px;
-      min-height: 86px;
+      padding: 14px 16px;
+      min-height: auto;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: default;  /* カード全体クリックは無効化 */
     }
-    .stage .name { font-size: 14px; font-weight: 600; }
-    .stage .ja { font-size: 10.5px; margin-top: 4px; }
-    .stage::after {
-      content: '› タップで詳細';
+    .stage-body {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 12px;
+      cursor: pointer;  /* 本体タップでプレビュー */
+      padding: 4px 0;
+      flex-wrap: wrap;
+    }
+    .stage .name { font-size: 15px; font-weight: 600; }
+    .stage .ja { font-size: 11px; margin-top: 0; }
+    .stage-detail-btn {
       opacity: 1;
       color: var(--navy);
-      font-size: 9.5px;
-      margin-top: 6px;
+      border-color: var(--navy);
+      padding: 8px 16px;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 0;
+      min-height: 36px;  /* タップしやすい高さ */
     }
-    /* 5番目だけ全幅にする */
-    .stage:nth-child(5) { grid-column: 1 / -1; }
+    .stage:hover { transform: none; }
+    .stage.active {
+      background: rgba(11,31,58,0.04);
+    }
 
     /* 詳細パネル：モーダルがあるので簡略化 */
     .detail { padding-top: 8px; }
@@ -1029,8 +1070,10 @@ const ICONS = {
 
 let active = 1;
 
-/* ---- stages（各カードの間に矢印を挟む） ---- */
+/* ---- stages（各カードに「詳細ボタン」を内包） ---- */
 const stagesEl = document.getElementById('stages');
+const IS_TOUCH = window.matchMedia('(hover: none)').matches;
+
 STAGES.forEach((s, i) => {
   // 矢印（先頭以外）
   if (i > 0) {
@@ -1043,8 +1086,11 @@ STAGES.forEach((s, i) => {
   d.className = 'stage' + (i === active ? ' active' : '');
   d.dataset.idx = i;
   d.innerHTML = `
-    <div><span class="name">${s.ja}</span></div>
-    <div class="ja">${s.name}</div>
+    <div class="stage-body">
+      <div><span class="name">${s.ja}</span></div>
+      <div class="ja">${s.name}</div>
+    </div>
+    <button class="stage-detail-btn" type="button" aria-label="${s.ja}の詳細を見る">詳細を見る ›</button>
   `;
   stagesEl.appendChild(d);
 });
@@ -1055,18 +1101,43 @@ function setActive(i) {
   renderDetail(i);
   setPhase(i);
 }
-/* hover で粒子・詳細を更新（PC向け） */
+
+/* デスクトップ：hoverで粒子・詳細を更新 */
 document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
 });
-/* ステージカードはクリックでモーダルを開く */
-document.querySelectorAll('.stage').forEach(el => {
-  el.addEventListener('click', () => {
-    const i = +el.dataset.idx;
+
+/* カード本体タップ：プレビューのみ（モーダルは開かない） */
+document.querySelectorAll('.stage .stage-body').forEach(el => {
+  el.addEventListener('click', (e) => {
+    const i = +el.closest('.stage').dataset.idx;
+    setActive(i);
+  });
+});
+
+/* 「詳細を見る」ボタンタップ：モーダルを開く */
+document.querySelectorAll('.stage-detail-btn').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const i = +el.closest('.stage').dataset.idx;
     setActive(i);
     openModal(i);
   });
 });
+
+/* デスクトップ：カード全体クリックでモーダル（hover環境のみ） */
+if (!IS_TOUCH) {
+  document.querySelectorAll('.stage').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // ボタン領域は除外
+      if (e.target.closest('.stage-detail-btn')) return;
+      if (e.target.closest('.stage-body')) return; // body の click ハンドラに任せる
+      const i = +el.dataset.idx;
+      setActive(i);
+      openModal(i);
+    });
+  });
+}
 
 /* ===== Modal ===== */
 const modalBackdrop = document.getElementById('modalBackdrop');
