@@ -176,7 +176,7 @@
     box-shadow: 0 4px 16px rgba(11,31,58,0.15);
   }
   .stage::after {
-    content: '詳細を見る ›';
+    content: '事業内容を見る ›';
     display: block;
     margin-top: 10px;
     font-size: 11px;
@@ -1059,12 +1059,17 @@ function setActive(i) {
 document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
 });
-/* ステージカードはクリックでモーダルを開く */
+/* TOPページ版：カードクリックで事業内容ページへ遷移（フェーズ別アンカー） */
+const PHASE_HASH = ['manual', 'standard', 'dx', 'ai', 'revops'];
 document.querySelectorAll('.stage').forEach(el => {
+  el.style.cursor = 'pointer';
   el.addEventListener('click', () => {
     const i = +el.dataset.idx;
-    setActive(i);
-    openModal(i);
+    const hash = PHASE_HASH[i];
+    const url = `https://nouma.co.jp/service#${hash}`;
+    // iframe 埋め込みの場合は親ウィンドウごと遷移
+    try { window.top.location.href = url; }
+    catch (e) { window.location.href = url; }
   });
 });
 
@@ -1564,25 +1569,6 @@ requestAnimationFrame(drawScene);
 
 /* init */
 renderDetail(active);
-
-/* URL ハッシュからモーダル自動オープン（TOPページからの遷移用） */
-(function autoOpenFromHash() {
-  const hashMap = {
-    'manual': 0, 'phase-00': 0, 'phase00': 0,
-    'standard': 1, 'phase-01': 1, 'phase01': 1,
-    'dx': 2, 'dxax': 2, 'dx-ax': 2, 'phase-02': 2, 'phase02': 2,
-    'ai': 3, 'phase-03': 3, 'phase03': 3,
-    'revops': 4, 'phase-04': 4, 'phase04': 4
-  };
-  const hash = window.location.hash.replace('#', '').toLowerCase();
-  const idx = hashMap[hash];
-  if (idx !== undefined) {
-    setTimeout(() => {
-      setActive(idx);
-      openModal(idx);
-    }, 300);
-  }
-})();
 </script>
 </body>
 </html>
