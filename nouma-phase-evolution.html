@@ -295,6 +295,37 @@
     margin-bottom: 8px; line-height: 1.4;
     letter-spacing: 0.02em;
   }
+  .modal-title .num {
+    color: var(--subt);
+    font-weight: 400;
+    margin-right: 14px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85em;
+    letter-spacing: 0.1em;
+  }
+  /* 下部閉じるボタン */
+  .modal-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+  }
+  .modal-close-btn {
+    appearance: none;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 14px 56px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: background .25s, transform .25s;
+  }
+  .modal-close-btn:hover {
+    background: #001a3a;
+    transform: translateY(-1px);
+  }
   .modal-title-en {
     font-size: 14px; color: var(--subt);
     letter-spacing: 0.1em; margin-bottom: 24px;
@@ -573,7 +604,6 @@
     <button class="modal-close" id="modalClose" aria-label="閉じる">×</button>
     <div class="plan-badge" id="modalPlan"></div>
     <div class="modal-inner">
-      <div class="modal-num" id="modalNum"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-title-en" id="modalTitleEn"></div>
       <div class="modal-section">
@@ -583,6 +613,9 @@
       <div class="modal-section">
         <div class="modal-label">Nouma の支援</div>
         <div class="modal-support-grid" id="modalSupport"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-close-btn" id="modalCloseBtn">閉じる</button>
       </div>
     </div>
   </div>
@@ -718,8 +751,7 @@ document.querySelectorAll('.stage').forEach(el => {
 const modalBackdrop = document.getElementById('modalBackdrop');
 function openModal(i) {
   const s = STAGES[i];
-  document.getElementById('modalNum').textContent = `PHASE ${s.num}`;
-  document.getElementById('modalTitle').textContent = s.ja;
+  document.getElementById('modalTitle').innerHTML = `<span class="num">${s.num}</span>${s.ja}`;
   document.getElementById('modalTitleEn').textContent = `${s.name} ／ ${s.sub.split(' ／ ')[0]}`;
   document.getElementById('modalBody').innerHTML = s.body;
   const sup = document.getElementById('modalSupport');
@@ -748,6 +780,7 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
