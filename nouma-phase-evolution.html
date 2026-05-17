@@ -272,7 +272,9 @@
     max-width: 1240px;
     width: 100%;
     margin: 0 auto;
+    text-align: center;
   }
+  .modal-label { margin-left: auto; margin-right: auto; }
   .modal-backdrop.open .modal { transform: translateY(0); }
   /* 中身が高さを超えたら上揃え（中央寄せだと切れる場合あり） */
   @media (max-height: 600px) {
@@ -378,6 +380,8 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    align-items: center;
+    text-align: center;
   }
   .outcomes-list li:last-child { border-bottom: none; }
   .outcomes-list .o-metric {
@@ -398,14 +402,16 @@
     font-size: clamp(13px, 1vw, 15px);
     color: var(--ink);
     line-height: 1.7;
-    padding: 10px 0 10px 22px;
-    position: relative;
+    padding: 10px 0;
+    text-align: center;
   }
   .usecase-list li::before {
     content: '';
-    position: absolute; left: 0; top: 19px;
+    display: inline-block;
     width: 12px; height: 1px;
     background: var(--navy);
+    vertical-align: middle;
+    margin-right: 10px;
   }
 
   .side-cta {
