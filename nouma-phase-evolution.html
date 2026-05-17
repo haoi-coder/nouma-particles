@@ -249,22 +249,24 @@
     padding: 0;
     overflow-y: auto;
   }
-  .modal-backdrop.open { display: flex; opacity: 1; align-items: stretch; justify-content: stretch; }
+  .modal-backdrop.open { display: block; opacity: 1; }
   .modal {
     background: #fff;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: none;
+    height: 100%;
     margin: 0;
     padding: clamp(40px, 6vh, 72px) clamp(32px, 8vw, 120px);
     border-radius: 0;
-    position: relative;
     box-shadow: none;
     transform: translateY(20px);
     transition: transform .35s cubic-bezier(.2,.8,.2,1);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
   .modal-backdrop.open .modal { transform: translateY(0); }
   .modal-close {
