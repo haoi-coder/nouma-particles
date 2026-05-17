@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nouma — ご相談から導入までの流れ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:  #0B1F3A;
+    --ink:   #1A2B44;
+    --subt:  #6B7785;
+    --hair:  #D9DEE6;
+    --bg:    #FFFFFF;
+    --accent: #2F4A78;
+    --soft:  #F4F6F9;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%;
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: var(--ink);
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-weight: 400;
+    line-height: 1.75;
+    letter-spacing: 0.04em;
+  }
+  #ambient { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .frame {
+    position: relative; z-index: 2;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 56px);
+  }
+
+  /* ========= Hero ========= */
+  .hero { text-align: center; margin-bottom: clamp(48px, 6vw, 80px); }
+  .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px; letter-spacing: 0.4em;
+    color: var(--subt); text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 2.6vw, 34px);
+    font-weight: 700; color: var(--navy);
+    letter-spacing: 0.04em; line-height: 1.5;
+    margin: 0 0 24px;
+  }
+  .badges {
+    display: inline-flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px;
+    background: var(--soft);
+    border: 1px solid var(--hair);
+    border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.08em;
+    color: var(--navy); font-weight: 500;
+  }
+  .badge::before {
+    content: '●';
+    color: var(--accent);
+    font-size: 8px;
+  }
+
+  /* ========= Steps ========= */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  .step {
+    background: #fff;
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+    padding: clamp(20px, 2.5vw, 32px);
+    transition: all .3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .step:hover {
+    transform: translateY(-3px);
+    border-color: var(--navy);
+    box-shadow: 0 12px 32px rgba(11,31,58,0.08);
+  }
+  .step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    gap: 8px;
+  }
+  .step-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px; letter-spacing: 0.32em;
+    color: var(--subt); text-transform: uppercase;
+    font-weight: 600;
+  }
+  .step-meta {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px; letter-spacing: 0.06em;
+    color: var(--navy); font-weight: 500;
+    padding: 4px 10px;
+    background: var(--soft);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .step-title {
+    font-size: clamp(17px, 1.5vw, 21px);
+    font-weight: 700; color: var(--navy);
+    margin-bottom: 6px; line-height: 1.4;
+    letter-spacing: 0.03em;
+  }
+  .step-en {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px; color: var(--subt);
+    letter-spacing: 0.16em;
+    margin-bottom: 18px;
+  }
+  .step-list {
+    list-style: none; padding: 0; margin: 0 0 18px;
+    flex-grow: 1;
+  }
+  .step-list li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--hair);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 16px;
+    width: 12px; height: 6px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+  .step-list li b {
+    color: var(--navy); font-weight: 600;
+  }
+  .step-promise {
+    padding: 12px 14px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+  }
+  .step-promise::before {
+    content: '✓ ';
+    font-weight: 700;
+    color: #8FB3E0;
+  }
+
+  .step-arrow {
+    align-self: center;
+    width: 36px; height: 36px;
+    border: 1px solid var(--hair);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--navy);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 12px;
+    background: #fff;
+  }
+
+  /* ========= Promises ========= */
+  .promises {
+    background: var(--soft);
+    padding: clamp(32px, 4vw, 56px);
+    border-radius: 8px;
+    margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  .section-title {
+    text-align: center;
+    margin-bottom: clamp(28px, 4vw, 48px);
+  }
+  .section-title .eyebrow { margin-bottom: 10px; }
+  .section-title h2 {
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 700; color: var(--navy);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .promise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+  }
+  .promise-card {
+    background: #fff;
+    border-radius: 4px;
+    padding: clamp(20px, 2.5vw, 28px);
+    text-align: center;
+  }
+  .promise-icon {
+    width: 44px; height: 44px;
+    margin: 0 auto 16px;
+    border: 1.5px solid var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .promise-title {
+    font-size: 15px;
+    font-weight: 600; color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .promise-text {
+    font-size: 13px;
+    color: var(--subt);
+    line-height: 1.75;
+    letter-spacing: 0.04em;
+  }
+
+  /* ========= Voices ========= */
+  .voices { margin-bottom: clamp(48px, 6vw, 88px); }
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+  }
+  .voice-card {
+    background: #fff;
+    border: 1px solid var(--hair);
+    border-left: 3px solid var(--navy);
+    border-radius: 4px;
+    padding: clamp(20px, 2.5vw, 32px);
+  }
+  .voice-quote {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.95;
+    margin-bottom: 18px;
+    letter-spacing: 0.04em;
+    font-style: normal;
+  }
+  .voice-quote::before {
+    content: '“';
+    font-size: 36px;
+    color: var(--hair);
+    line-height: 0.5;
+    vertical-align: -10px;
+    margin-right: 4px;
+    font-family: serif;
+  }
+  .voice-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--subt);
+    border-top: 1px solid var(--hair);
+    padding-top: 14px;
+  }
+  .voice-meta b {
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* ========= CTA ========= */
+  .cta-section {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 8px;
+    padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
+    text-align: center;
+  }
+  .cta-section .eyebrow { color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+  .cta-section h2 {
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 14px;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+  .cta-section p {
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+    margin: 0 0 28px;
+    letter-spacing: 0.04em;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 44px;
+    background: #fff;
+    color: var(--navy);
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all .3s;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+  .cta-button-arrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 18px;
+  }
+  .cta-note {
+    margin-top: 20px !important;
+    font-size: 12px !important;
+    color: rgba(255,255,255,0.55) !important;
+  }
+  .cta-note .sep { margin: 0 12px; opacity: 0.4; }
+
+  /* ========= Responsive ========= */
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .step-arrow {
+      transform: rotate(90deg);
+      margin: 8px auto;
+    }
+    .promise-grid { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 20px; }
+    .step-title { font-size: 17px; }
+    .badges { gap: 6px; }
+    .badge { padding: 6px 14px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="ambient"></canvas>
+
+<div class="frame">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="eyebrow">FLOW</div>
+    <h1>ご相談から導入までの3ステップ</h1>
+    <div class="badges">
+      <span class="badge">完全無料</span>
+      <span class="badge">押し売りなし</span>
+      <span class="badge">最短2週間でスタート</span>
+    </div>
+  </section>
+
+  <!-- ===== Steps ===== -->
+  <section class="steps">
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-num">STEP 01</span>
+        <span class="step-meta">30分 ／ 無料</span>
+      </div>
+      <h3 class="step-title">初回のご相談</h3>
+      <div class="step-en">Initial Consultation</div>
+      <ul class="step-list">
+        <li><b>何をする</b>：現状の業務・課題・目指したい姿をヒアリング</li>
+        <li><b>準備するもの</b>：不要（資料準備も必要ありません）</li>
+        <li><b>その場で得られるもの</b>：課題の整理と次の一手のご提案</li>
+      </ul>
+      <div class="step-promise">相談だけでも歓迎です。その場での営業はいたしません。</div>
+    </div>
+
+    <div class="step-arrow">›</div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-num">STEP 02</span>
+        <span class="step-meta">1週間 ／ 無料</span>
+      </div>
+      <h3 class="step-title">プランのご提案</h3>
+      <div class="step-en">Proposal &amp; Quotation</div>
+      <ul class="step-list">
+        <li><b>何をする</b>：御社専用の支援プランと見積もりを作成</li>
+        <li><b>含まれるもの</b>：業務範囲・期間・成果物・費用感</li>
+        <li><b>お渡しするもの</b>：提案書とお見積書一式</li>
+      </ul>
+      <div class="step-promise">他社との比較も歓迎です。ご判断に時間をかけてください。</div>
+    </div>
+
+    <div class="step-arrow">›</div>
+
+    <div class="step">
+      <div class="step-header">
+        <span class="step-num">STEP 03</span>
+        <span class="step-meta">最短2週間で開始</span>
+      </div>
+      <h3 class="step-title">ご契約・スタート</h3>
+      <div class="step-en">Contract &amp; Kickoff</div>
+      <ul class="step-list">
+        <li><b>何をする</b>：契約締結後、即キックオフ</li>
+        <li><b>体制</b>：御社専属チーム（PM＋スペシャリスト）</li>
+        <li><b>最初の成果</b>：30日以内に最初のマイルストーン到達</li>
+      </ul>
+      <div class="step-promise">契約後30日間のキャンセル制度あり。安心してお試しください。</div>
+    </div>
+
+  </section>
+
+  <!-- ===== Promises ===== -->
+  <section class="promises">
+    <div class="section-title">
+      <div class="eyebrow">OUR PROMISES</div>
+      <h2>Nouma の3つのお約束</h2>
+    </div>
+    <div class="promise-grid">
+      <div class="promise-card">
+        <div class="promise-icon">¥</div>
+        <div class="promise-title">相談・提案は完全無料</div>
+        <div class="promise-text">初回相談から提案書のご提供まで、費用は一切かかりません。納得いただいてからご契約ください。</div>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">!</div>
+        <div class="promise-title">強引な営業は一切なし</div>
+        <div class="promise-text">何度も連絡したり、即決を迫ることはありません。御社のペースでご判断いただけます。</div>
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">↺</div>
+        <div class="promise-title">30日キャンセル制度</div>
+        <div class="promise-text">契約後30日以内であれば、ご満足いただけない場合キャンセル可能。リスクなく始められます。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Voices ===== -->
+  <section class="voices">
+    <div class="section-title">
+      <div class="eyebrow">CLIENT VOICES</div>
+      <h2>ご相談いただいたお客様の声</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-quote">最初の相談だけで、自社の課題が整理できました。営業されると思っていましたが、本当にヒアリングだけで、その後も自社のペースで検討できました。</div>
+        <div class="voice-meta"><b>製造業 ／ 経営企画室長</b>　従業員規模 200名</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-quote">提案書の質が他社と全く違いました。私たちの業務を深く理解した上で、優先順位まで提示してくれたので、社内承認もスムーズでした。</div>
+        <div class="voice-meta"><b>サービス業 ／ 取締役</b>　従業員規模 80名</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="eyebrow">CONTACT</div>
+    <h2>まずは30分、お話を聞かせてください</h2>
+    <p>無料相談のご予約はこちらから</p>
+    <a href="#contact" class="cta-button">
+      無料相談を予約する
+      <span class="cta-button-arrow">→</span>
+    </a>
+    <p class="cta-note">
+      <span>営業時間内であれば即日返信</span>
+      <span class="sep">／</span>
+      <span>土日相談も可</span>
+      <span class="sep">／</span>
+      <span>オンライン・対面どちらも対応</span>
+    </p>
+  </section>
+
+</div>
+
+<script>
+/* ===== Ambient drift (phase-evolution と同じ演出) ===== */
+(() => {
+  const canvas = document.getElementById('ambient');
+  const ctx = canvas.getContext('2d');
+  const NAVY = '#0B1F3A';
+  const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+  let W = 0, H = 0, ps = [];
+  function rng(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      let t = a;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function init() {
+    W = canvas.width  = Math.floor(window.innerWidth  * DPR);
+    H = canvas.height = Math.floor(window.innerHeight * DPR);
+    canvas.style.width  = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    const N = Math.round((window.innerWidth * window.innerHeight) / 45000);
+    const r = rng(13); ps = [];
+    for (let i = 0; i < N; i++) {
+      ps.push({
+        x: r() * W, y: r() * H,
+        vx: (r() - 0.5) * 0.04 * DPR,
+        vy: (r() - 0.5) * 0.04 * DPR,
+        radius: (0.5 + r() * 0.6) * DPR,
+        alpha: 0.08 + r() * 0.15
+      });
+    }
+  }
+  let isVisible = true;
+  document.addEventListener('visibilitychange', () => { isVisible = !document.hidden; });
+  function tick() {
+    requestAnimationFrame(tick);
+    if (!isVisible) return;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of ps) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10;
+      if (p.y > H + 10) p.y = -10;
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = NAVY;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  window.addEventListener('resize', init);
+  init();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
