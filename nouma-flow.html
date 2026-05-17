@@ -13,18 +13,20 @@
     --ink:   #1A2B44;
     --subt:  #6B7785;
     --hair:  #D9DEE6;
-    --bg:    #FFFFFF;
-    --accent: #2F4A78;
-    --soft:  #F4F6F9;
+    --bg:    #29303C;
+    --accent: #6FA0DB;
+    --soft:  #353D4A;
+    --on-dark-sub: rgba(255,255,255,0.65);
+    --on-dark-hair: rgba(255,255,255,0.15);
   }
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0;
     width: 100%;
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
-    color: var(--ink);
-    color-scheme: light;
+    background: #29303C !important;
+    background-color: #29303C !important;
+    color: #fff;
+    color-scheme: dark;
     -webkit-font-smoothing: antialiased;
   }
   body {
@@ -47,12 +49,12 @@
   .eyebrow {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 11px; letter-spacing: 0.4em;
-    color: var(--subt); text-transform: uppercase;
+    color: var(--on-dark-sub); text-transform: uppercase;
     margin-bottom: 14px;
   }
   .hero h1 {
     font-size: clamp(22px, 2.6vw, 34px);
-    font-weight: 700; color: var(--navy);
+    font-weight: 700; color: #fff;
     letter-spacing: 0.04em; line-height: 1.5;
     margin: 0 0 24px;
   }
@@ -63,11 +65,11 @@
   .badge {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 18px;
-    background: var(--soft);
-    border: 1px solid var(--hair);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--on-dark-hair);
     border-radius: 999px;
     font-size: 12px; letter-spacing: 0.08em;
-    color: var(--navy); font-weight: 500;
+    color: #fff; font-weight: 500;
   }
   .badge::before {
     content: '●';
@@ -175,23 +177,24 @@
   .step-arrow {
     align-self: center;
     width: 36px; height: 36px;
-    border: 1px solid var(--hair);
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
-    color: var(--navy);
+    color: #fff;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 18px;
     font-weight: 600;
     margin: 0 12px;
-    background: #fff;
+    background: transparent;
   }
 
   /* ========= Promises ========= */
   .promises {
-    background: var(--soft);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--on-dark-hair);
     padding: clamp(32px, 4vw, 56px);
     border-radius: 8px;
-    margin-bottom: clamp(48px, 6vw, 88px);
+    margin-bottom: clamp(20px, 3vw, 32px);
   }
   .section-title {
     text-align: center;
@@ -200,7 +203,7 @@
   .section-title .eyebrow { margin-bottom: 10px; }
   .section-title h2 {
     font-size: clamp(18px, 2vw, 26px);
-    font-weight: 700; color: var(--navy);
+    font-weight: 700; color: #fff;
     margin: 0;
     letter-spacing: 0.04em;
   }
@@ -456,42 +459,6 @@
     </div>
   </section>
 
-  <!-- ===== Voices ===== -->
-  <section class="voices">
-    <div class="section-title">
-      <div class="eyebrow">CLIENT VOICES</div>
-      <h2>ご相談いただいたお客様の声</h2>
-    </div>
-    <div class="voice-grid">
-      <div class="voice-card">
-        <div class="voice-quote">最初の相談だけで、自社の課題が整理できました。営業されると思っていましたが、本当にヒアリングだけで、その後も自社のペースで検討できました。</div>
-        <div class="voice-meta"><b>製造業 ／ 経営企画室長</b>　従業員規模 200名</div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-quote">提案書の質が他社と全く違いました。私たちの業務を深く理解した上で、優先順位まで提示してくれたので、社内承認もスムーズでした。</div>
-        <div class="voice-meta"><b>サービス業 ／ 取締役</b>　従業員規模 80名</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA ===== -->
-  <section class="cta-section">
-    <div class="eyebrow">CONTACT</div>
-    <h2>まずは30分、お話を聞かせてください</h2>
-    <p>無料相談のご予約はこちらから</p>
-    <a href="#contact" class="cta-button">
-      無料相談を予約する
-      <span class="cta-button-arrow">→</span>
-    </a>
-    <p class="cta-note">
-      <span>営業時間内であれば即日返信</span>
-      <span class="sep">／</span>
-      <span>土日相談も可</span>
-      <span class="sep">／</span>
-      <span>オンライン・対面どちらも対応</span>
-    </p>
-  </section>
-
 </div>
 
 <script>
@@ -499,7 +466,7 @@
 (() => {
   const canvas = document.getElementById('ambient');
   const ctx = canvas.getContext('2d');
-  const NAVY = '#0B1F3A';
+  const COLOR = '#FFFFFF';
   const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
   let W = 0, H = 0, ps = [];
   function rng(seed) {
@@ -542,7 +509,7 @@
       if (p.y < -10) p.y = H + 10;
       if (p.y > H + 10) p.y = -10;
       ctx.globalAlpha = p.alpha;
-      ctx.fillStyle = NAVY;
+      ctx.fillStyle = COLOR;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fill();
