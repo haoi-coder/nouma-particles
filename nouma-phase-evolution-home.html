@@ -1029,24 +1029,27 @@ const ICONS = {
 
 let active = 1;
 
-/* ---- stages（各カードの間に矢印を挟む） ---- */
+/* TOPページ版：各カードは <a> タグ。クリックで事業内容ページの該当フェーズへ遷移 */
+const PHASE_HASH = ['manual', 'standard', 'dx', 'ai', 'revops'];
 const stagesEl = document.getElementById('stages');
 STAGES.forEach((s, i) => {
-  // 矢印（先頭以外）
   if (i > 0) {
     const arr = document.createElement('span');
     arr.className = 'stage-arrow';
     arr.textContent = '›';
     stagesEl.appendChild(arr);
   }
-  const d = document.createElement('div');
-  d.className = 'stage' + (i === active ? ' active' : '');
-  d.dataset.idx = i;
-  d.innerHTML = `
+  const a = document.createElement('a');
+  a.className = 'stage' + (i === active ? ' active' : '');
+  a.dataset.idx = i;
+  a.href = `https://nouma.co.jp/service#${PHASE_HASH[i]}`;
+  a.target = '_top'; // iframe親ウィンドウごと遷移
+  a.style.textDecoration = 'none';
+  a.innerHTML = `
     <div><span class="name">${s.ja}</span></div>
     <div class="ja">${s.name}</div>
   `;
-  stagesEl.appendChild(d);
+  stagesEl.appendChild(a);
 });
 
 function setActive(i) {
@@ -1055,22 +1058,9 @@ function setActive(i) {
   renderDetail(i);
   setPhase(i);
 }
-/* hover で粒子・詳細を更新（PC向け） */
+/* hover で粒子・詳細を更新（PC向け、遷移は <a> のクリックに任せる） */
 document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
-});
-/* TOPページ版：カードクリックで事業内容ページへ遷移（フェーズ別アンカー） */
-const PHASE_HASH = ['manual', 'standard', 'dx', 'ai', 'revops'];
-document.querySelectorAll('.stage').forEach(el => {
-  el.style.cursor = 'pointer';
-  el.addEventListener('click', () => {
-    const i = +el.dataset.idx;
-    const hash = PHASE_HASH[i];
-    const url = `https://nouma.co.jp/service#${hash}`;
-    // iframe 埋め込みの場合は親ウィンドウごと遷移
-    try { window.top.location.href = url; }
-    catch (e) { window.location.href = url; }
-  });
 });
 
 /* ===== Modal ===== */
