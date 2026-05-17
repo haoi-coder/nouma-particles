@@ -354,11 +354,11 @@
     background: linear-gradient(transparent 70%, rgba(11,31,58,0.08) 70%);
     padding: 0 2px;
   }
-  /* ===== Two-column layout ===== */
+  /* ===== Two-column layout (50/50) ===== */
   .modal-cols {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
     align-items: start;
   }
   .modal-main { min-width: 0; }
@@ -373,64 +373,65 @@
 
   .outcomes-list { list-style: none; padding: 0; margin: 0; }
   .outcomes-list li {
-    padding: 12px 0;
+    padding: 16px 0;
     border-bottom: 1px solid var(--hair);
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
   .outcomes-list li:last-child { border-bottom: none; }
   .outcomes-list .o-metric {
-    font-size: 10px;
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    letter-spacing: 0.22em;
     color: var(--subt);
     text-transform: uppercase;
   }
   .outcomes-list .o-value {
-    font-size: 14px;
+    font-size: clamp(15px, 1.15vw, 17px);
     color: var(--navy);
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .usecase-list { list-style: none; padding: 0; margin: 0; }
   .usecase-list li {
-    font-size: 13px;
+    font-size: clamp(13px, 1vw, 15px);
     color: var(--ink);
-    line-height: 1.65;
-    padding: 8px 0 8px 18px;
+    line-height: 1.7;
+    padding: 10px 0 10px 22px;
     position: relative;
   }
   .usecase-list li::before {
     content: '';
-    position: absolute; left: 0; top: 16px;
-    width: 8px; height: 1px;
+    position: absolute; left: 0; top: 19px;
+    width: 12px; height: 1px;
     background: var(--navy);
   }
 
   .side-cta {
     background: #0B1F3A;
     border-radius: 8px;
-    padding: 22px 20px;
+    padding: 28px 24px;
     text-align: center;
     color: #fff;
-    margin-top: 8px;
+    margin-top: 12px;
   }
   .cta-text {
-    font-size: 13px;
-    line-height: 1.7;
-    margin: 0 0 14px;
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.8;
+    margin: 0 0 18px;
     color: #fff;
     letter-spacing: 0.04em;
+    font-weight: 500;
   }
   .cta-btn {
     display: inline-block;
     background: #fff;
     color: var(--navy);
-    padding: 11px 22px;
-    font-size: 12px;
+    padding: 13px 32px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-decoration: none;
     border-radius: 999px;
     transition: transform .25s, box-shadow .25s;
