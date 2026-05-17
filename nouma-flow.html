@@ -107,16 +107,26 @@
     gap: 8px;
   }
   .step-num {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 10px; letter-spacing: 0.32em;
-    color: var(--subt); text-transform: uppercase;
-    font-weight: 600;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    color: var(--navy);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+  .step-num::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--navy);
+    vertical-align: middle;
+    margin-right: 10px;
   }
   .step-meta {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 10px; letter-spacing: 0.06em;
-    color: #fff; font-weight: 600;
-    padding: 5px 12px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: #fff; font-weight: 500;
+    padding: 5px 14px;
     background: var(--navy);
     border-radius: 999px;
     white-space: nowrap;
@@ -182,185 +192,55 @@
     border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     color: #fff;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Noto Serif JP', serif;
     font-size: 18px;
     font-weight: 600;
     margin: 0 12px;
     background: transparent;
   }
 
-  /* ========= Promises ========= */
-  .promises {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--on-dark-hair);
-    padding: clamp(20px, 3vw, 32px);
-    border-radius: 8px;
-    margin-bottom: 0;
-  }
-  .section-title {
-    text-align: center;
-    margin-bottom: clamp(16px, 2vw, 24px);
-  }
-  .section-title .eyebrow { margin-bottom: 10px; }
-  .section-title h2 {
-    font-size: clamp(18px, 2vw, 26px);
-    font-weight: 700; color: #fff;
-    margin: 0;
-    letter-spacing: 0.04em;
-  }
-  .promise-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(16px, 2vw, 28px);
-  }
-  .promise-card {
-    background: #fff;
-    border-radius: 4px;
-    padding: clamp(20px, 2.5vw, 28px);
-    text-align: center;
-  }
-  .promise-icon {
-    width: 44px; height: 44px;
-    margin: 0 auto 16px;
-    border: 1.5px solid var(--navy);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--navy);
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
-  .promise-title {
-    font-size: 15px;
-    font-weight: 600; color: var(--navy);
-    margin-bottom: 8px;
-    letter-spacing: 0.04em;
-  }
-  .promise-text {
-    font-size: 13px;
-    color: var(--subt);
-    line-height: 1.75;
-    letter-spacing: 0.04em;
-  }
-
-  /* ========= Voices ========= */
-  .voices { margin-bottom: clamp(48px, 6vw, 88px); }
-  .voice-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(16px, 2vw, 28px);
-  }
-  .voice-card {
-    background: #fff;
-    border: 1px solid var(--hair);
-    border-left: 3px solid var(--navy);
-    border-radius: 4px;
-    padding: clamp(20px, 2.5vw, 32px);
-  }
-  .voice-quote {
-    font-size: 14px;
-    color: var(--ink);
-    line-height: 1.95;
-    margin-bottom: 18px;
-    letter-spacing: 0.04em;
-    font-style: normal;
-  }
-  .voice-quote::before {
-    content: '“';
-    font-size: 36px;
-    color: var(--hair);
-    line-height: 0.5;
-    vertical-align: -10px;
-    margin-right: 4px;
-    font-family: serif;
-  }
-  .voice-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 12px;
-    color: var(--subt);
-    border-top: 1px solid var(--hair);
-    padding-top: 14px;
-  }
-  .voice-meta b {
-    color: var(--navy);
-    font-weight: 600;
-    font-size: 13px;
-  }
-
-  /* ========= CTA ========= */
-  .cta-section {
-    background: var(--navy);
-    color: #fff;
-    border-radius: 8px;
-    padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
-    text-align: center;
-  }
-  .cta-section .eyebrow { color: rgba(255,255,255,0.6); margin-bottom: 14px; }
-  .cta-section h2 {
-    font-size: clamp(18px, 2vw, 26px);
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 14px;
-    letter-spacing: 0.04em;
-    line-height: 1.5;
-  }
-  .cta-section p {
-    color: rgba(255,255,255,0.75);
-    font-size: 13px;
-    margin: 0 0 28px;
-    letter-spacing: 0.04em;
-  }
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 44px;
-    background: #fff;
-    color: var(--navy);
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    transition: all .3s;
-    border: none;
-    cursor: pointer;
-  }
-  .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-  }
-  .cta-button-arrow {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 18px;
-  }
-  .cta-note {
-    margin-top: 20px !important;
-    font-size: 12px !important;
-    color: rgba(255,255,255,0.55) !important;
-  }
-  .cta-note .sep { margin: 0 12px; opacity: 0.4; }
-
   /* ========= Responsive ========= */
-  @media (max-width: 900px) {
+  /* タブレット */
+  @media (max-width: 960px) {
+    .frame { padding: 28px 24px; }
+    .hero { margin-bottom: 20px; }
     .steps {
       grid-template-columns: 1fr;
-      gap: 0;
+      gap: 10px;
     }
     .step-arrow {
+      width: 30px; height: 30px;
       transform: rotate(90deg);
-      margin: 8px auto;
+      margin: 0 auto;
+      font-size: 16px;
     }
-    .promise-grid { grid-template-columns: 1fr; }
-    .voice-grid { grid-template-columns: 1fr; }
+    .step { padding: 20px; }
+    .step-title { font-size: 18px; margin-bottom: 12px; }
   }
+  /* スマホ */
   @media (max-width: 600px) {
-    .hero h1 { font-size: 20px; }
-    .step-title { font-size: 17px; }
-    .badges { gap: 6px; }
-    .badge { padding: 6px 14px; font-size: 11px; }
+    .frame { padding: 20px 16px; }
+    .badges {
+      gap: 6px;
+      flex-direction: column;
+      align-items: center;
+    }
+    .badge {
+      padding: 8px 16px;
+      font-size: 12px;
+      width: fit-content;
+    }
+    .step { padding: 18px 16px; }
+    .step-header { margin-bottom: 10px; }
+    .step-num { font-size: 20px; }
+    .step-num::before { width: 18px; margin-right: 8px; }
+    .step-meta { font-size: 10px; padding: 4px 10px; }
+    .step-title { font-size: 16px; margin-bottom: 10px; }
+    .step-list li { font-size: 12.5px; padding: 5px 0 5px 20px; }
+    .step-list li::before { top: 11px; }
+    .step-promise { font-size: 11.5px; padding: 12px 10px; }
+    .step-promise br { display: none; }
+    .step-arrow { width: 26px; height: 26px; font-size: 14px; }
   }
 </style>
 </head>
@@ -384,7 +264,7 @@
 
     <div class="step">
       <div class="step-header">
-        <span class="step-num">STEP 01</span>
+        <span class="step-num">01</span>
         <span class="step-meta">30分 ／ 無料</span>
       </div>
       <h3 class="step-title">初回のご相談</h3>
@@ -400,7 +280,7 @@
 
     <div class="step">
       <div class="step-header">
-        <span class="step-num">STEP 02</span>
+        <span class="step-num">02</span>
         <span class="step-meta">1週間 ／ 無料</span>
       </div>
       <h3 class="step-title">プランのご提案</h3>
@@ -416,7 +296,7 @@
 
     <div class="step">
       <div class="step-header">
-        <span class="step-num">STEP 03</span>
+        <span class="step-num">03</span>
         <span class="step-meta">最短2週間で開始</span>
       </div>
       <h3 class="step-title">ご契約・スタート</h3>
@@ -428,31 +308,6 @@
       <div class="step-promise">契約後30日間のキャンセル制度あり。<br>安心してお試しください。</div>
     </div>
 
-  </section>
-
-  <!-- ===== Promises ===== -->
-  <section class="promises">
-    <div class="section-title">
-      <div class="eyebrow">OUR PROMISES</div>
-      <h2>Nouma の3つのお約束</h2>
-    </div>
-    <div class="promise-grid">
-      <div class="promise-card">
-        <div class="promise-icon">¥</div>
-        <div class="promise-title">相談・提案は完全無料</div>
-        <div class="promise-text">初回相談から提案書のご提供まで、費用は一切かかりません。納得いただいてからご契約ください。</div>
-      </div>
-      <div class="promise-card">
-        <div class="promise-icon">!</div>
-        <div class="promise-title">強引な営業は一切なし</div>
-        <div class="promise-text">何度も連絡したり、即決を迫ることはありません。御社のペースでご判断いただけます。</div>
-      </div>
-      <div class="promise-card">
-        <div class="promise-icon">↺</div>
-        <div class="promise-title">30日キャンセル制度</div>
-        <div class="promise-text">契約後30日以内であれば、ご満足いただけない場合キャンセル可能。リスクなく始められます。</div>
-      </div>
-    </div>
   </section>
 
 </div>
