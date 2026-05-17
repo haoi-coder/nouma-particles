@@ -246,21 +246,25 @@
     display: none;
     opacity: 0;
     transition: opacity .3s;
-    padding: 24px;
+    padding: 0;
     overflow-y: auto;
   }
-  .modal-backdrop.open { display: flex; opacity: 1; align-items: flex-start; justify-content: center; }
+  .modal-backdrop.open { display: flex; opacity: 1; align-items: stretch; justify-content: stretch; }
   .modal {
     background: #fff;
-    max-width: 720px;
     width: 100%;
-    margin: 4vh auto;
-    padding: 48px clamp(28px, 5vw, 56px);
-    border-radius: 6px;
+    max-width: none;
+    margin: 0;
+    padding: clamp(40px, 6vh, 72px) clamp(32px, 8vw, 120px);
+    border-radius: 0;
     position: relative;
-    box-shadow: 0 30px 80px rgba(11,31,58,0.3);
+    box-shadow: none;
     transform: translateY(20px);
     transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
   }
   .modal-backdrop.open .modal { transform: translateY(0); }
   .modal-close {
