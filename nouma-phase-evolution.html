@@ -295,9 +295,9 @@
     text-transform: uppercase; margin-bottom: 12px;
   }
   .modal-title {
-    font-size: clamp(22px, 2.4vw, 28px);
+    font-size: clamp(28px, 3vw, 36px);
     font-weight: 700; color: var(--navy);
-    margin-bottom: 8px; line-height: 1.4;
+    margin-bottom: 10px; line-height: 1.3;
     letter-spacing: 0.02em;
   }
   .modal-title .num {
@@ -332,21 +332,23 @@
     transform: translateY(-1px);
   }
   .modal-title-en {
-    font-size: 14px; color: var(--subt);
-    letter-spacing: 0.1em; margin-bottom: 24px;
+    font-size: 15px; color: var(--subt);
+    letter-spacing: 0.1em; margin-bottom: 32px;
   }
-  .modal-section { margin-bottom: 28px; }
+  .modal-section { margin-bottom: 32px; }
   .modal-section:last-child { margin-bottom: 0; }
   .modal-label {
-    font-size: 11px; letter-spacing: 0.28em; color: var(--navy);
-    text-transform: uppercase; font-weight: 600;
-    margin-bottom: 10px;
-    padding-bottom: 6px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
     border-bottom: 2px solid var(--navy);
     display: inline-block;
   }
   .modal-body {
-    font-size: clamp(14px, 1.05vw, 16px);
+    font-size: clamp(15px, 1.1vw, 17px);
     color: var(--ink); line-height: 1.9;
     letter-spacing: 0.04em;
   }
@@ -354,6 +356,39 @@
     color: var(--navy); font-weight: 600;
     background: linear-gradient(transparent 70%, rgba(11,31,58,0.08) 70%);
     padding: 0 2px;
+  }
+
+  /* よくある現状／よくある課題のフラットリスト */
+  .flat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .flat-list li {
+    font-size: clamp(15px, 1.1vw, 17px);
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 10px 0 10px 24px;
+    position: relative;
+    letter-spacing: 0.03em;
+  }
+  .flat-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 14px;
+    height: 1px;
+    background: var(--navy);
+  }
+  .flat-list--challenge li::before {
+    background: #c0392b;
+    height: 2px;
+    width: 12px;
+  }
+  .flat-list--challenge li {
+    color: var(--ink);
+    font-weight: 500;
   }
   /* ===== Two-column layout (50/50) ===== */
   .modal-cols {
@@ -452,11 +487,11 @@
     background: #0B1F3A;
     border: 1px solid #0B1F3A;
     border-radius: 6px;
-    padding: 22px 20px;
+    padding: 20px 18px;
     transition: transform .25s, box-shadow .25s, background .25s;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
   .sup-card:hover {
     transform: translateY(-3px);
@@ -464,23 +499,23 @@
     box-shadow: 0 10px 28px rgba(11,31,58,0.25);
   }
   .sup-icon {
-    width: 36px; height: 36px;
+    width: 32px; height: 32px;
     color: #fff;
     display: flex; align-items: center; justify-content: center;
     opacity: 0.95;
   }
   .sup-icon svg { width: 100%; height: 100%; }
   .sup-title {
-    font-size: clamp(13px, 1vw, 15px);
+    font-size: clamp(14px, 1.05vw, 16px);
     font-weight: 600;
     color: #fff;
     letter-spacing: 0.04em;
     line-height: 1.5;
   }
   .sup-desc {
-    font-size: clamp(11.5px, 0.85vw, 13px);
+    font-size: clamp(12.5px, 0.9vw, 14px);
     color: rgba(255,255,255,0.78);
-    line-height: 1.75;
+    line-height: 1.65;
     letter-spacing: 0.02em;
   }
 
@@ -710,11 +745,15 @@
       <div class="modal-cols">
         <div class="modal-main">
           <div class="modal-section">
-            <div class="modal-label">現状の特徴</div>
-            <p class="modal-body" id="modalBody"></p>
+            <div class="modal-label">よくある現状</div>
+            <ul class="flat-list" id="modalCurrentState"></ul>
           </div>
           <div class="modal-section">
-            <div class="modal-label">Nouma の支援</div>
+            <div class="modal-label">よくある課題</div>
+            <ul class="flat-list flat-list--challenge" id="modalChallenges"></ul>
+          </div>
+          <div class="modal-section">
+            <div class="modal-label">Nouma の支援領域</div>
             <div class="modal-support-grid" id="modalSupport"></div>
           </div>
         </div>
@@ -722,10 +761,6 @@
           <div class="side-block">
             <div class="modal-label">期待される効果</div>
             <ul class="outcomes-list" id="modalOutcomes"></ul>
-          </div>
-          <div class="side-block">
-            <div class="modal-label">こんな課題に</div>
-            <ul class="usecase-list" id="modalUseCases"></ul>
           </div>
           <div class="side-cta">
             <p class="cta-text">まずは無料診断で<br>現状を可視化しませんか</p>
@@ -750,20 +785,25 @@ const STAGES = [
     sub: 'As-is ／ 属人化フェーズ',
     body: 'メンバーはバラバラに散らばり、<span class="k">それぞれのミッション、ノウハウ、業務</span>を行う。',
     plan: { label: '無料', sub: 'FREE', isFree: true },
+    currentState: [
+      'メンバーが個人で動いている',
+      'やり方は人それぞれ',
+      '経験と感覚で業務を回している'
+    ],
+    challenges: [
+      '担当者がいないと業務が止まる',
+      '新人が育つのに時間がかかる',
+      'どこから改善するか判断できない'
+    ],
     support: [
-      { t: '属人化マップの作成', d: '誰が何を担い、抜けると止まる箇所をマトリクスで可視化', icon: 'map' },
-      { t: '現場課題の言語化', d: '抽象的な"回らない"を具体的な課題リストへ変換', icon: 'doc' },
-      { t: '改善優先度の設計', d: '影響度×頻度×解消難度でスコアリング、ロードマップ提示', icon: 'chart' }
+      { t: '業務の見える化', d: '誰が何をしているかを整理する', icon: 'map' },
+      { t: '課題の整理', d: '回らない理由を言葉にする', icon: 'doc' },
+      { t: '改善の道筋づくり', d: '進める順番を明確にする', icon: 'chart' }
     ],
     outcomes: [
-      { m: '可視化', v: '組織の属人化リスクと改善優先度を構造化' },
-      { m: '初期費用', v: '無料診断（最大2週間）' },
-      { m: '提供物', v: '属人化マップ・課題リスト・推進ロードマップ' }
-    ],
-    useCases: [
-      '組織が大きくなり業務が回らなくなってきた',
-      '退職や異動でナレッジが消える不安がある',
-      '何から手を付けるべきか優先順位が見えない'
+      { m: '見えるようになる', v: '組織の問題と優先順位' },
+      { m: '費用', v: '無料（最大2週間）' },
+      { m: 'お渡しするもの', v: '見える化資料／課題一覧／改善計画' }
     ]
   },
   {
@@ -771,21 +811,26 @@ const STAGES = [
     sub: 'Standardization ／ 標準化',
     body: '業務フロー・役割・判断基準を整え、<span class="k">同じミッションで動く</span>ようになる。組織としてまとまり始める。',
     plan: { label: 'Basic Plan', sub: '標準プラン', isFree: false },
+    currentState: [
+      '業務を整え始めた段階',
+      'チームで同じ目標を追いたい',
+      '人を増やしても回したい'
+    ],
+    challenges: [
+      'マニュアルが整っていない',
+      '責任の所在が曖昧',
+      '評価のものさしが揃っていない'
+    ],
     support: [
-      { t: '業務SOP・プレイブック整備', d: '主要フローを文書化、短期間で習得可能なレベルに言語化', icon: 'doc' },
-      { t: '役割定義・RACI設計', d: '責任の重複・空白を解消、オーナーを明確化', icon: 'people' },
-      { t: 'KPIと判断基準の再設計', d: '評価指標を定義しダッシュボードで常時可視化', icon: 'dashboard' },
-      { t: '例外運用と現場定着の伴走', d: 'エスカレーションルール整備、定着まで継続伴走', icon: 'shield' }
+      { t: '業務マニュアル整備', d: '誰でも同じ品質で動ける仕組み', icon: 'doc' },
+      { t: '役割と責任の明確化', d: '誰が決めるかを整える', icon: 'people' },
+      { t: '評価指標の設計', d: 'チーム共通のものさしをつくる', icon: 'dashboard' },
+      { t: '定着までの伴走', d: '仕組みが現場で回るまで支援', icon: 'shield' }
     ],
     outcomes: [
-      { m: '業務工数', v: '平均 20〜30% 削減' },
-      { m: '育成期間', v: '新人立ち上がり 約半分に短縮' },
-      { m: '提供物', v: 'SOP・RACI・KPI設計書・運用ガイドライン' }
-    ],
-    useCases: [
-      '特定メンバーに業務が集中して回らない',
-      '評価基準が曖昧で個別判断に頼っている',
-      '採用しても育成に時間がかかりすぎる'
+      { m: '業務の時間', v: '平均 20〜30% の短縮' },
+      { m: '育成スピード', v: '新人立ち上がりが約2倍速く' },
+      { m: 'お渡しするもの', v: 'マニュアル／役割表／評価指標／運用ガイド' }
     ]
   },
   {
@@ -793,23 +838,28 @@ const STAGES = [
     sub: 'Re-architecture ／ 業務基盤の再設計',
     body: 'デジタル基盤・ツール・データという<span class="k">別のサポート</span>が生まれ、既存の組織と接続される。<br>人間とデジタルの異なる二つのものが、一つの組織として動き始める。',
     plan: { label: 'Advanced Plan', sub: 'アドバンスプラン', isFree: false },
+    currentState: [
+      '業務は整ったが手作業が多い',
+      'データが各所に散らばっている',
+      'ツール導入を検討している'
+    ],
+    challenges: [
+      'エクセル管理が限界',
+      'データを集めるのに時間がかかる',
+      '導入したツールが使われない'
+    ],
     support: [
-      { t: 'SaaS・ツール選定／導入', d: '業務要件からの選定、契約交渉、現場定着まで一貫支援', icon: 'tool' },
-      { t: 'データ基盤の設計・構築', d: 'DWH設計、データ構造化、BI連携で意思決定の土台を整備', icon: 'database' },
-      { t: '業務システム統合のPM', d: 'SaaS連携、iPaaS活用、API設計のPMを兼務で推進', icon: 'connect' },
-      { t: 'デジタル業務フロー再構築', d: '紙/Excel依存業務をWebアプリ・SaaSへ移行', icon: 'flow' },
-      { t: 'セキュリティ・ガバナンス設計', d: 'アクセス権限、データ保護、監査ログ設計まで実装レベルで支援', icon: 'shield' },
-      { t: '運用設計・定着サポート', d: '導入後の運用フロー設計、ヘルプデスク体制、ナレッジ蓄積の仕組み構築', icon: 'gear' }
+      { t: 'ツール選定と導入', d: '業務に合うツールを選び定着まで支援', icon: 'tool' },
+      { t: 'データ基盤の整備', d: '判断に使えるデータの土台をつくる', icon: 'database' },
+      { t: 'システムの連携設計', d: 'バラバラな仕組みを一つにつなぐ', icon: 'connect' },
+      { t: '業務のデジタル化', d: '紙・エクセル業務をオンライン化', icon: 'flow' },
+      { t: 'セキュリティ設計', d: 'アクセス権限と情報保護を整備', icon: 'shield' },
+      { t: '導入後の定着支援', d: '使われ続ける運用づくり', icon: 'gear' }
     ],
     outcomes: [
-      { m: '業務自動化率', v: '対象業務の 30〜50% を自動化' },
-      { m: '意思決定速度', v: 'リアルタイム可視化で 3〜5倍' },
-      { m: '提供物', v: 'システム構成図・データ基盤・運用マニュアル' }
-    ],
-    useCases: [
-      'Excel・スプレッドシートでの管理が限界',
-      'データが各部署で分断されている',
-      'システム導入したが現場で使われていない'
+      { m: '手作業の削減', v: '対象業務の 30〜50% を自動化' },
+      { m: '判断スピード', v: 'リアルタイム把握で 3〜5倍' },
+      { m: 'お渡しするもの', v: '仕組み設計図／データ基盤／運用マニュアル' }
     ]
   },
   {
@@ -817,21 +867,26 @@ const STAGES = [
     sub: 'AI Implementation ／ AI活用',
     body: '統合された事業や組織の中にAIが入り込み、<span class="k">判断・生成・予測</span>が業務フローに織り込まれる。<br>事業や組織同士の結合が密になっていく。',
     plan: { label: 'AI Plan', sub: 'AIプラン', isFree: false },
+    currentState: [
+      'デジタル化は進んだ',
+      'データは整い始めている',
+      'AI活用を本格化したい'
+    ],
+    challenges: [
+      'AIを試したいが何から始めるか分からない',
+      'お試しで終わってしまう',
+      '人手不足をAIで解決したい'
+    ],
     support: [
-      { t: 'AI/MCPオーケストレーション設計', d: 'AIエージェント＋MCPサーバーの全体アーキテクチャ設計', icon: 'ai' },
-      { t: '業務AIエージェント実装', d: '営業・CS・バックオフィスの業務固有AIエージェント開発', icon: 'robot' },
-      { t: 'PoC→本番運用への移行', d: '小さな実証から本番稼働、運用監視まで継続伴走', icon: 'launch' },
-      { t: '人×AI 協働モデル設計', d: 'AIと人の境界線設計＋組織変革をセットで推進', icon: 'sync' }
+      { t: 'AI活用の全体設計', d: 'どこにどう使うかを設計する', icon: 'ai' },
+      { t: '業務AIの開発・導入', d: '営業・CS・バックオフィスのAIを実装', icon: 'robot' },
+      { t: '本番運用まで伴走', d: 'お試しで終わらせず実運用へ', icon: 'launch' },
+      { t: '人とAIの役割分担', d: '任せる業務と人が担う業務を整理', icon: 'sync' }
     ],
     outcomes: [
-      { m: '対応スピード', v: '判断・生成業務が 10倍速以上' },
-      { m: '稼働時間', v: '24時間365日の自律対応が可能に' },
-      { m: '提供物', v: 'AIエージェント・MCP連携基盤・運用監視体制' }
-    ],
-    useCases: [
-      'AI を試したいが何から始めるか分からない',
-      'PoCで終わって本番運用に乗らない',
-      '人手不足を AI で解決したい'
+      { m: '対応スピード', v: '判断業務が 10倍以上' },
+      { m: '稼働時間', v: '24時間365日の自動対応' },
+      { m: 'お渡しするもの', v: 'AIシステム／運用体制／監視の仕組み' }
     ]
   },
   {
@@ -839,21 +894,26 @@ const STAGES = [
     sub: 'Aligned State ／ 事業横断推進',
     body: '部分的な個別最適から<span class="k">全体最適</span>へ。事業全体がひとつになり同じ位相で連動する状態を実現。<br>スピーディーで自律的なリテール組織を形成します。',
     plan: { label: 'Enterprise', sub: 'エンタープライズプラン', isFree: false },
+    currentState: [
+      '各部門は機能している',
+      '次の成長フェーズを狙いたい',
+      '全社の連携を強化したい'
+    ],
+    challenges: [
+      '部門ごとの連携が弱い',
+      '経営判断が遅くなる',
+      '全社最適にならない'
+    ],
     support: [
-      { t: 'RevOps体制の設計', d: '営業・マーケ・CSを統合運営する体制と役割を定義', icon: 'people' },
-      { t: '全社データ統合運用', d: '各部門SaaSデータを一元化、経営ダッシュボード構築', icon: 'dashboard' },
-      { t: '部門横断KPIの設計', d: '部門最適から全社最適へ、共通KPIと評価制度を再設計', icon: 'chart' },
-      { t: '継続的改善・伴走支援', d: '月次/四半期会議に同席、PDCAを共に回す長期パートナー', icon: 'growth' }
+      { t: '部門統合の体制づくり', d: '営業・マーケ・CSを一体運営', icon: 'people' },
+      { t: '全社データの一元化', d: 'どこからでも見える経営の可視化', icon: 'dashboard' },
+      { t: '共通指標の設計', d: '全社で同じものさしを揃える', icon: 'chart' },
+      { t: '長期的な伴走支援', d: '月次・四半期で改善を共に進める', icon: 'growth' }
     ],
     outcomes: [
-      { m: '事業成長率', v: '部門横断連携で 1.5〜2倍を狙う' },
-      { m: '組織連携', v: '部門最適 → 全体最適への完全移行' },
-      { m: '提供物', v: '統合KPI設計・経営ダッシュボード・運用体制' }
-    ],
-    useCases: [
-      '部門間の連携が悪く全社最適にならない',
-      '経営判断のスピードを上げたい',
-      '事業を次のステージへスケールさせたい'
+      { m: '事業の成長', v: '部門横断連携で 1.5〜2倍を狙う' },
+      { m: '組織の連携', v: '全社が一つの方向で動ける状態' },
+      { m: 'お渡しするもの', v: '全社指標／経営の見える化／運用体制' }
     ]
   }
 ];
@@ -925,7 +985,23 @@ function openModal(i) {
   const s = STAGES[i];
   document.getElementById('modalTitle').innerHTML = `<span class="num">${s.num}</span>${s.ja}`;
   document.getElementById('modalTitleEn').textContent = `${s.name} ／ ${s.sub.split(' ／ ')[0]}`;
-  document.getElementById('modalBody').innerHTML = s.body;
+  // よくある現状
+  const cur = document.getElementById('modalCurrentState');
+  cur.innerHTML = '';
+  (s.currentState || []).forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    cur.appendChild(li);
+  });
+  // よくある課題
+  const ch = document.getElementById('modalChallenges');
+  ch.innerHTML = '';
+  (s.challenges || []).forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    ch.appendChild(li);
+  });
+  // Nouma の支援領域
   const sup = document.getElementById('modalSupport');
   sup.innerHTML = '';
   s.support.forEach(item => {
@@ -949,14 +1025,6 @@ function openModal(i) {
     const li = document.createElement('li');
     li.innerHTML = `<span class="o-metric">${o.m}</span><span class="o-value">${o.v}</span>`;
     out.appendChild(li);
-  });
-  // 活用イメージ／こんな課題に
-  const uc = document.getElementById('modalUseCases');
-  uc.innerHTML = '';
-  (s.useCases || []).forEach(text => {
-    const li = document.createElement('li');
-    li.textContent = text;
-    uc.appendChild(li);
   });
   modalBackdrop.classList.add('open');
   modalBackdrop.setAttribute('aria-hidden', 'false');
