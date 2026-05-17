@@ -1333,7 +1333,7 @@ function renderDetail(i) {
 (() => {
   const canvas = document.getElementById('ambient');
   const ctx = canvas.getContext('2d');
-  const DPR = Math.min(window.devicePixelRatio || 1, 1.75);
+  const DPR = Math.min(window.devicePixelRatio || 1, 1.25);
   let W = 0, H = 0, ps = [];
   function rng(seed) {
     let a = seed >>> 0;
@@ -1350,7 +1350,7 @@ function renderDetail(i) {
     H = canvas.height = Math.floor(window.innerHeight * DPR);
     canvas.style.width  = window.innerWidth + 'px';
     canvas.style.height = window.innerHeight + 'px';
-    const N = Math.round((window.innerWidth * window.innerHeight) / 35000);
+    const N = Math.round((window.innerWidth * window.innerHeight) / 55000);
     const r = rng(7); ps = [];
     for (let i = 0; i < N; i++) {
       ps.push({
@@ -1407,13 +1407,13 @@ const IS_LOW_END = CORES <= 4;
 
 let N_PRIMARY, N_TOOL, TARGET_FPS;
 if (IS_MOBILE) {
-  N_PRIMARY = 65;  N_TOOL = 35;  TARGET_FPS = 30;
+  N_PRIMARY = 50;  N_TOOL = 25;  TARGET_FPS = 30;
 } else if (IS_TABLET) {
-  N_PRIMARY = 100; N_TOOL = 55;  TARGET_FPS = 45;
+  N_PRIMARY = 75;  N_TOOL = 40;  TARGET_FPS = 40;
 } else if (IS_LOW_END) {
-  N_PRIMARY = 110; N_TOOL = 60;  TARGET_FPS = 45;
+  N_PRIMARY = 80;  N_TOOL = 45;  TARGET_FPS = 40;
 } else {
-  N_PRIMARY = 150; N_TOOL = 80;  TARGET_FPS = 60;
+  N_PRIMARY = 110; N_TOOL = 60;  TARGET_FPS = 50;
 }
 const FRAME_INTERVAL = 1000 / TARGET_FPS;
 let primary = [];
@@ -1463,7 +1463,7 @@ function initParticles() {
 }
 
 function resizeScene() {
-  SDPR = Math.min(window.devicePixelRatio || 1, 2);
+  SDPR = Math.min(window.devicePixelRatio || 1, 1.5);
   const rect = scene.getBoundingClientRect();
   const w = Math.max(rect.width, 320);
   const h = Math.max(rect.height, 200);
@@ -1512,6 +1512,8 @@ document.addEventListener('visibilitychange', () => {
 function drawScene(now) {
   requestAnimationFrame(drawScene);
   if (!SW || !isVisible) return;
+  // モーダル表示中は背景描画を停止（CPU節約）
+  if (document.getElementById('modalBackdrop')?.classList.contains('open')) return;
   if (now && now - lastFrame < FRAME_INTERVAL) return;
   lastFrame = now || 0;
   t += 1 / TARGET_FPS;
