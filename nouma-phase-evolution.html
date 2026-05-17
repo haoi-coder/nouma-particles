@@ -443,6 +443,52 @@
     background: var(--navy);
   }
 
+  /* 概算見積もりパネル */
+  .estimate-panel {
+    background: rgba(11,31,58,0.04);
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .estimate-hint {
+    font-size: 12px;
+    color: var(--subt);
+    text-align: center;
+    line-height: 1.7;
+    padding: 12px 0;
+    letter-spacing: 0.04em;
+  }
+  .estimate-result { display: block; }
+  .est-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--hair);
+    gap: 12px;
+  }
+  .est-row:last-of-type { border-bottom: none; }
+  .est-row--lead { border-top: 1px dashed var(--hair); margin-top: 4px; padding-top: 10px; }
+  .est-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--subt);
+    flex-shrink: 0;
+  }
+  .est-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: right;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .est-note {
+    font-size: 10px;
+    color: var(--subt);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
   .side-cta {
     background: #0B1F3A;
     border-radius: 6px;
@@ -497,6 +543,25 @@
     background: #14223A;
     box-shadow: 0 6px 18px rgba(11,31,58,0.25);
   }
+  .sup-card.is-selected {
+    background: #14223A;
+    box-shadow: 0 0 0 2px #ffd166, 0 6px 18px rgba(11,31,58,0.3);
+  }
+  .sup-card.is-selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 18px; height: 18px;
+    background: #ffd166;
+    color: #0B1F3A;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .sup-card { position: relative; }
   .sup-icon {
     width: 24px; height: 24px;
     color: #fff;
@@ -762,9 +827,28 @@
             <div class="modal-label">期待される効果</div>
             <ul class="outcomes-list" id="modalOutcomes"></ul>
           </div>
+          <div class="estimate-panel" id="estimatePanel">
+            <div class="modal-label">概算お見積り</div>
+            <div class="estimate-hint" id="estimateHint">左の支援領域をタップして<br>必要な項目を選択してください</div>
+            <div class="estimate-result" id="estimateResult" hidden>
+              <div class="est-row">
+                <span class="est-label">概算費用</span>
+                <span class="est-value" id="estPrice">—</span>
+              </div>
+              <div class="est-row">
+                <span class="est-label">想定期間</span>
+                <span class="est-value" id="estWeeks">—</span>
+              </div>
+              <div class="est-row est-row--lead">
+                <span class="est-label">リードタイム</span>
+                <span class="est-value" id="estLead">—</span>
+              </div>
+              <div class="est-note">※実際のご提案時に正式お見積りいたします</div>
+            </div>
+          </div>
           <div class="side-cta">
-            <p class="cta-text">まずは無料診断で<br>現状を可視化しませんか</p>
-            <a class="cta-btn" href="#contact" id="modalCtaBtn">無料診断を相談する</a>
+            <p class="cta-text">気になる支援領域があれば<br>まずはお気軽にご相談ください</p>
+            <a class="cta-btn" href="#contact" id="modalCtaBtn">無料相談を申し込む</a>
           </div>
         </aside>
       </div>
@@ -796,10 +880,11 @@ const STAGES = [
       'どこから改善するか判断できない'
     ],
     support: [
-      { t: '業務の見える化', d: '誰が何をしているかを整理する', icon: 'map' },
-      { t: '課題の整理', d: '回らない理由を言葉にする', icon: 'doc' },
-      { t: '改善の道筋づくり', d: '進める順番を明確にする', icon: 'chart' }
+      { t: '業務の見える化', d: '誰が何をしているかを整理する', icon: 'map', free: true },
+      { t: '課題の整理', d: '回らない理由を言葉にする', icon: 'doc', free: true },
+      { t: '改善の道筋づくり', d: '進める順番を明確にする', icon: 'chart', free: true }
     ],
+    leadTime: '着手まで約1週間',
     outcomes: [
       { m: '見えるようになる', v: '組織の問題と優先順位' },
       { m: '費用', v: '無料（最大2週間）' },
@@ -822,11 +907,12 @@ const STAGES = [
       '評価のものさしが揃っていない'
     ],
     support: [
-      { t: '業務マニュアル整備', d: '誰でも同じ品質で動ける仕組み', icon: 'doc' },
-      { t: '役割と責任の明確化', d: '誰が決めるかを整える', icon: 'people' },
-      { t: '評価指標の設計', d: 'チーム共通のものさしをつくる', icon: 'dashboard' },
-      { t: '定着までの伴走', d: '仕組みが現場で回るまで支援', icon: 'shield' }
+      { t: '業務マニュアル整備', d: '誰でも同じ品質で動ける仕組み', icon: 'doc', price: [60, 150], weeks: [4, 8] },
+      { t: '役割と責任の明確化', d: '誰が決めるかを整える', icon: 'people', price: [40, 100], weeks: [3, 6] },
+      { t: '評価指標の設計', d: 'チーム共通のものさしをつくる', icon: 'dashboard', price: [50, 120], weeks: [3, 6] },
+      { t: '定着までの伴走', d: '仕組みが現場で回るまで支援', icon: 'shield', price: [30, 60], weeks: [4, 12], monthly: true }
     ],
+    leadTime: '着手まで約2週間',
     outcomes: [
       { m: '業務の時間', v: '平均 20〜30% の短縮' },
       { m: '育成スピード', v: '新人立ち上がりが約2倍速く' },
@@ -849,13 +935,14 @@ const STAGES = [
       '導入したツールが使われない'
     ],
     support: [
-      { t: 'ツール選定と導入', d: '業務に合うツールを選び定着まで支援', icon: 'tool' },
-      { t: 'データ基盤の整備', d: '判断に使えるデータの土台をつくる', icon: 'database' },
-      { t: 'システムの連携設計', d: 'バラバラな仕組みを一つにつなぐ', icon: 'connect' },
-      { t: '業務のデジタル化', d: '紙・エクセル業務をオンライン化', icon: 'flow' },
-      { t: 'セキュリティ設計', d: 'アクセス権限と情報保護を整備', icon: 'shield' },
-      { t: '導入後の定着支援', d: '使われ続ける運用づくり', icon: 'gear' }
+      { t: 'ツール選定と導入', d: '業務に合うツールを選び定着まで支援', icon: 'tool', price: [80, 200], weeks: [6, 12] },
+      { t: 'データ基盤の整備', d: '判断に使えるデータの土台をつくる', icon: 'database', price: [150, 400], weeks: [12, 24] },
+      { t: 'システムの連携設計', d: 'バラバラな仕組みを一つにつなぐ', icon: 'connect', price: [100, 250], weeks: [8, 16] },
+      { t: '業務のデジタル化', d: '紙・エクセル業務をオンライン化', icon: 'flow', price: [80, 200], weeks: [8, 16] },
+      { t: 'セキュリティ設計', d: 'アクセス権限と情報保護を整備', icon: 'shield', price: [60, 150], weeks: [4, 8] },
+      { t: '導入後の定着支援', d: '使われ続ける運用づくり', icon: 'gear', price: [40, 80], weeks: [4, 12], monthly: true }
     ],
+    leadTime: '着手まで約3〜4週間',
     outcomes: [
       { m: '手作業の削減', v: '対象業務の 30〜50% を自動化' },
       { m: '判断スピード', v: 'リアルタイム把握で 3〜5倍' },
@@ -878,11 +965,12 @@ const STAGES = [
       '人手不足をAIで解決したい'
     ],
     support: [
-      { t: 'AI活用の全体設計', d: 'どこにどう使うかを設計する', icon: 'ai' },
-      { t: '業務AIの開発・導入', d: '営業・CS・バックオフィスのAIを実装', icon: 'robot' },
-      { t: '本番運用まで伴走', d: 'お試しで終わらせず実運用へ', icon: 'launch' },
-      { t: '人とAIの役割分担', d: '任せる業務と人が担う業務を整理', icon: 'sync' }
+      { t: 'AI活用の全体設計', d: 'どこにどう使うかを設計する', icon: 'ai', price: [100, 200], weeks: [4, 8] },
+      { t: '業務AIの開発・導入', d: '営業・CS・バックオフィスのAIを実装', icon: 'robot', price: [200, 500], weeks: [12, 24] },
+      { t: '本番運用まで伴走', d: 'お試しで終わらせず実運用へ', icon: 'launch', price: [80, 150], weeks: [4, 12], monthly: true },
+      { t: '人とAIの役割分担', d: '任せる業務と人が担う業務を整理', icon: 'sync', price: [60, 120], weeks: [4, 8] }
     ],
+    leadTime: '着手まで約3〜4週間',
     outcomes: [
       { m: '対応スピード', v: '判断業務が 10倍以上' },
       { m: '稼働時間', v: '24時間365日の自動対応' },
@@ -905,11 +993,12 @@ const STAGES = [
       '全社最適にならない'
     ],
     support: [
-      { t: '部門統合の体制づくり', d: '営業・マーケ・CSを一体運営', icon: 'people' },
-      { t: '全社データの一元化', d: 'どこからでも見える経営の可視化', icon: 'dashboard' },
-      { t: '共通指標の設計', d: '全社で同じものさしを揃える', icon: 'chart' },
-      { t: '長期的な伴走支援', d: '月次・四半期で改善を共に進める', icon: 'growth' }
+      { t: '部門統合の体制づくり', d: '営業・マーケ・CSを一体運営', icon: 'people', price: [150, 300], weeks: [12, 24] },
+      { t: '全社データの一元化', d: 'どこからでも見える経営の可視化', icon: 'dashboard', price: [200, 500], weeks: [12, 24] },
+      { t: '共通指標の設計', d: '全社で同じものさしを揃える', icon: 'chart', price: [100, 200], weeks: [8, 16] },
+      { t: '長期的な伴走支援', d: '月次・四半期で改善を共に進める', icon: 'growth', price: [100, 200], weeks: [4, 12], monthly: true }
     ],
+    leadTime: '着手まで約4週間',
     outcomes: [
       { m: '事業の成長', v: '部門横断連携で 1.5〜2倍を狙う' },
       { m: '組織の連携', v: '全社が一つの方向で動ける状態' },
@@ -1001,19 +1090,25 @@ function openModal(i) {
     li.textContent = text;
     ch.appendChild(li);
   });
-  // Nouma の支援領域
+  // Nouma の支援領域（クリックで選択トグル）
   const sup = document.getElementById('modalSupport');
   sup.innerHTML = '';
-  s.support.forEach(item => {
+  s.support.forEach((item, idx) => {
     const card = document.createElement('div');
     card.className = 'sup-card';
+    card.dataset.idx = idx;
     card.innerHTML = `
       <div class="sup-icon">${ICONS[item.icon] || ''}</div>
       <div class="sup-title">${item.t}</div>
       <div class="sup-desc">${item.d}</div>
     `;
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-selected');
+      updateEstimate(s);
+    });
     sup.appendChild(card);
   });
+  updateEstimate(s);
   // プランバッジ
   const planEl = document.getElementById('modalPlan');
   planEl.className = 'plan-badge' + (s.plan.isFree ? ' is-free' : '');
@@ -1030,6 +1125,60 @@ function openModal(i) {
   modalBackdrop.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
+function updateEstimate(stage) {
+  const hint = document.getElementById('estimateHint');
+  const result = document.getElementById('estimateResult');
+  // Manual（無料フェーズ）の場合
+  if (stage.plan && stage.plan.isFree) {
+    hint.hidden = true;
+    result.hidden = false;
+    document.getElementById('estPrice').textContent = '無料';
+    document.getElementById('estWeeks').textContent = '最大2週間';
+    document.getElementById('estLead').textContent = stage.leadTime || '着手まで約1週間';
+    return;
+  }
+  // 選択されたカードの集計
+  const selected = Array.from(document.querySelectorAll('.sup-card.is-selected'));
+  if (selected.length === 0) {
+    hint.hidden = false;
+    result.hidden = true;
+    return;
+  }
+  let priceMin = 0, priceMax = 0, monthlyMin = 0, monthlyMax = 0;
+  let weeksMin = 0, weeksMax = 0;
+  selected.forEach(card => {
+    const idx = +card.dataset.idx;
+    const item = stage.support[idx];
+    if (!item.price) return;
+    if (item.monthly) {
+      monthlyMin += item.price[0];
+      monthlyMax += item.price[1];
+    } else {
+      priceMin += item.price[0];
+      priceMax += item.price[1];
+    }
+    // 期間は最大ベース（並行作業前提で最長項目に揃える）
+    if (item.weeks) {
+      weeksMin = Math.max(weeksMin, item.weeks[0]);
+      weeksMax = Math.max(weeksMax, item.weeks[1]);
+    }
+  });
+  hint.hidden = true;
+  result.hidden = false;
+  // 費用表示
+  let priceStr = '';
+  if (priceMax > 0) priceStr = `¥${priceMin.toLocaleString()}〜${priceMax.toLocaleString()}万円`;
+  if (monthlyMax > 0) {
+    const monthlyStr = `¥${monthlyMin.toLocaleString()}〜${monthlyMax.toLocaleString()}万円/月`;
+    priceStr = priceStr ? `${priceStr}<br><span style="font-size:.9em;color:var(--subt)">+ ${monthlyStr}</span>` : monthlyStr;
+  }
+  document.getElementById('estPrice').innerHTML = priceStr || '—';
+  // 期間表示
+  const weeksStr = weeksMin === weeksMax ? `約${weeksMin}週間` : `約${weeksMin}〜${weeksMax}週間`;
+  document.getElementById('estWeeks').textContent = weeksStr;
+  document.getElementById('estLead').textContent = stage.leadTime || '着手まで約3〜4週間';
+}
+
 function closeModal() {
   modalBackdrop.classList.remove('open');
   modalBackdrop.setAttribute('aria-hidden', 'true');
