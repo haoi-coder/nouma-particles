@@ -213,11 +213,7 @@
   .detail-title {
     font-size: clamp(14px, 1.2vw, 17px);
     font-weight: 600; color: var(--navy);
-    letter-spacing: 0.04em; margin-bottom: 4px; line-height: 1.4;
-  }
-  .detail-sub {
-    font-size: 11px; color: var(--subt);
-    letter-spacing: 0.08em; margin-bottom: 8px;
+    letter-spacing: 0.04em; margin-bottom: 6px; line-height: 1.4;
   }
   .detail-text {
     font-size: clamp(13px, 1.05vw, 15px);
@@ -633,8 +629,7 @@ function renderDetail(i) {
   const s = STAGES[i];
   document.getElementById('detailBody').innerHTML = `
     <div class="detail-title fade-in">${s.name}<span style="color:var(--subt);font-weight:400;margin-left:10px;font-size:.85em;">— ${s.ja}</span></div>
-    <div class="detail-sub fade-in" style="animation-delay:.05s">${s.sub}</div>
-    <p class="detail-text fade-in" style="animation-delay:.1s">${s.body}</p>
+    <p class="detail-text fade-in" style="animation-delay:.05s">${s.body}</p>
   `;
   document.getElementById('phaseCap').innerHTML = `Phase <b>${s.num} ／ ${s.name}</b>`;
 }
