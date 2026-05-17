@@ -71,6 +71,10 @@
     font-weight: 600; color: var(--navy);
     letter-spacing: 0.05em; line-height: 1.5;
   }
+  /* レスポンシブ改行制御 */
+  .br-sm, .br-md { display: none; }
+  @media (max-width: 768px) { .br-md { display: inline; } }
+  @media (max-width: 480px) { .br-sm { display: inline; } }
   .lead p {
     margin: 0;
     font-size: clamp(11px, 0.95vw, 13px);
@@ -582,7 +586,7 @@
 <div class="frame">
 
   <section class="lead">
-    <h1>属人から事業横断推進へ。事業の位相を、段階的に整える。</h1>
+    <h1>属人から事業横断推進へ。<br class="br-md">事業の位相を、<br class="br-sm">段階的に整える。</h1>
   </section>
 
   <section class="stage-area">
