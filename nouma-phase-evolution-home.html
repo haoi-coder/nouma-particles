@@ -701,7 +701,7 @@
     /* ステージカード：2カラムでスタック表示（モバイルでは矢印非表示） */
     .stages {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      flex-direction: column;
       gap: 10px;
       margin-top: 8px;
     }
@@ -716,7 +716,7 @@
     .stage .name { font-size: 14px; font-weight: 600; }
     .stage .ja { font-size: 10.5px; margin-top: 4px; }
     .stage::after {
-      content: '› タップで詳細';
+      content: none;
       opacity: 1;
       color: var(--navy);
       font-size: 9.5px;
@@ -774,6 +774,26 @@
     .chain .bra:hover { opacity: .5; color: var(--subt); }
     .chain .bra.active { opacity: 1; color: var(--navy); }
   }
+  /* ===== Mobile Override v2 ===== */
+    @media (max-width: 640px) {
+          .frame { gap: 10px; padding: 16px 14px 24px; }
+          .lead h1 { font-size: 15px; line-height: 1.5; }
+          .lead p { font-size: 11px; line-height: 1.6; }
+          .stage-area { min-height: 180px; max-height: 220px; }
+          .phase-caption { padding-top: 8px; margin-bottom: 8px; }
+          .stages { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+          .stage { padding: 10px 14px; min-height: auto; flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; }
+          .stage .num { margin-bottom: 0; font-size: 9px; }
+          .stage .name { font-size: 13px; }
+          .stage .ja { font-size: 10px; margin-top: 0; margin-left: 4px; }
+          .stage::after { content: none; display: none; }
+          .stage:nth-child(5) { grid-column: auto; }
+          .detail { padding-top: 4px; }
+          .detail-title { font-size: 14px; margin-bottom: 4px; }
+          .detail-sub { font-size: 10px; margin-bottom: 8px; }
+          .detail-text { font-size: 12px; line-height: 1.7; }
+    }
+
 </style>
 </head>
 <body>
