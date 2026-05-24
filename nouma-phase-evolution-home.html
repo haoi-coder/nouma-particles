@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nouma — Phase Evolution</title>
+<title>Nouma â Phase Evolution</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@
     letter-spacing: 0.05em; line-height: 1.5;
     text-align: center;
   }
-  /* レスポンシブ改行制御 */
+  /* ã¬ã¹ãã³ã·ãæ¹è¡å¶å¾¡ */
   .br-sm, .br-md { display: none; }
   @media (max-width: 768px) { .br-md { display: inline; } }
   @media (max-width: 480px) { .br-sm { display: inline; } }
@@ -113,7 +113,7 @@
     transform: translateY(-1px);
   }
 
-  /* ② 粒子グラフィックの主役エリア（1fr で可変、最低限の高さ確保） */
+  /* â¡ ç²å­ã°ã©ãã£ãã¯ã®ä¸»å½¹ã¨ãªã¢ï¼1fr ã§å¯å¤ãæä½éã®é«ãç¢ºä¿ï¼ */
   .stage-area {
     position: relative;
     min-height: 200px;
@@ -176,7 +176,7 @@
     box-shadow: 0 4px 16px rgba(11,31,58,0.15);
   }
   .stage::after {
-    content: '事業内容を見る ›';
+    content: 'äºæ¥­åå®¹ãè¦ã âº';
     display: block;
     margin-top: 10px;
     font-size: 11px;
@@ -275,7 +275,7 @@
     margin: 0 auto;
   }
   .modal-backdrop.open .modal { transform: translateY(0); }
-  /* 中身が高さを超えたら上揃え（中央寄せだと切れる場合あり） */
+  /* ä¸­èº«ãé«ããè¶ãããä¸æãï¼ä¸­å¤®å¯ãã ã¨åããå ´åããï¼ */
   @media (max-height: 600px) {
     .modal { justify-content: flex-start; }
   }
@@ -308,7 +308,7 @@
     font-size: 0.85em;
     letter-spacing: 0.1em;
   }
-  /* 下部閉じるボタン */
+  /* ä¸é¨éãããã¿ã³ */
   .modal-actions {
     margin-top: 20px;
     display: flex;
@@ -358,7 +358,7 @@
     padding: 0 2px;
   }
 
-  /* よくある現状／よくある課題のフラットリスト */
+  /* ããããç¾ç¶ï¼ããããèª²é¡ã®ãã©ãããªã¹ã */
   .flat-list {
     list-style: none;
     padding: 0;
@@ -443,7 +443,7 @@
     background: var(--navy);
   }
 
-  /* 概算見積もりパネル */
+  /* æ¦ç®è¦ç©ããããã« */
   .estimate-panel {
     background: rgba(11,31,58,0.04);
     border: 1px solid var(--hair);
@@ -548,7 +548,7 @@
     box-shadow: 0 0 0 2px #A8CDE5, 0 6px 18px rgba(11,31,58,0.3);
   }
   .sup-card.is-selected::after {
-    content: '✓';
+    content: 'â';
     position: absolute;
     top: 8px;
     right: 10px;
@@ -629,7 +629,7 @@
   }
   footer.foot .right { letter-spacing: 0.06em; text-transform: none; font-size: 12px; }
 
-  /* ===== タブレット ===== */
+  /* ===== ã¿ãã¬ãã ===== */
   @media (max-width: 960px) {
     html, body { overflow-y: auto; height: auto; }
     .frame {
@@ -647,7 +647,7 @@
     .lead p { font-size: 12px; }
   }
 
-  /* ===== スマートフォン ===== */
+  /* ===== ã¹ãã¼ããã©ã³ ===== */
   @media (max-width: 640px) {
     html, body { overflow-y: auto; height: auto; -webkit-overflow-scrolling: touch; }
     .frame {
@@ -669,7 +669,7 @@
       padding: 0 4px;
     }
 
-    /* チェーン：折返しOK、コンパクト */
+    /* ãã§ã¼ã³ï¼æè¿ãOKãã³ã³ãã¯ã */
     .chain {
       gap: 6px;
       font-size: 11px;
@@ -685,10 +685,13 @@
       font-size: 10px;
     }
 
-    /* 粒子エリアの高さを固定 */
+    /* ç²å­ã¨ãªã¢ã®é«ããåºå® */
     .stage-area {
       min-height: 240px;
-      max-height: 280px;
+      max-height: none;
+      aspect-ratio: 1 / 1;
+      width: 80%;
+      margin: 0 auto;
       padding: 0;
     }
     .phase-caption {
@@ -698,23 +701,24 @@
       margin-bottom: 12px;
     }
 
-    /* ステージカード：2カラムでスタック表示（モバイルでは矢印非表示） */
+    /* ã¹ãã¼ã¸ã«ã¼ãï¼2ã«ã©ã ã§ã¹ã¿ãã¯è¡¨ç¤ºï¼ã¢ãã¤ã«ã§ã¯ç¢å°éè¡¨ç¤ºï¼ */
     .stages {
       display: grid;
       flex-direction: column;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin-top: 8px;
     }
     .stage-arrow { display: none; }
     .stage {
-      padding: 18px 10px;
-      min-height: 86px;
+      padding: 10px 8px;
+      min-height: 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    .stage .name { font-size: 14px; font-weight: 600; }
-    .stage .ja { font-size: 10.5px; margin-top: 4px; }
+    .stage .name { font-size: 11px; font-weight: 600; }
+    .stage .ja { font-size: 9px; margin-top: 2px; }
     .stage::after {
       content: none;
       opacity: 1;
@@ -722,10 +726,10 @@
       font-size: 9.5px;
       margin-top: 6px;
     }
-    /* 5番目だけ全幅にする */
+    /* 5çªç®ã ãå¨å¹ã«ãã */
     .stage:nth-child(5) { grid-column: 1 / -1; }
 
-    /* 詳細パネル：モーダルがあるので簡略化 */
+    /* è©³ç´°ããã«ï¼ã¢ã¼ãã«ãããã®ã§ç°¡ç¥å */
     .detail { padding-top: 8px; }
     .detail-body { padding: 0 8px; text-align: center; }
     .detail-title { font-size: 16px; margin-bottom: 6px; }
@@ -733,7 +737,7 @@
     .detail-text { font-size: 13.5px; line-height: 1.85; }
     .detail-text br { display: none; }
 
-    /* モーダル：モバイル用 */
+    /* ã¢ã¼ãã«ï¼ã¢ãã¤ã«ç¨ */
     .modal { padding: 80px 18px 28px; justify-content: flex-start; }
     .modal-inner { max-width: 100%; }
     .modal-cols { grid-template-columns: 1fr; gap: 24px; }
@@ -754,13 +758,13 @@
     .plan-badge .plan-sub { font-size: 9px; padding-left: 8px; }
   }
 
-  /* タブレット：1カラムに切替 */
+  /* ã¿ãã¬ããï¼1ã«ã©ã ã«åæ¿ */
   @media (max-width: 960px) {
     .modal-cols { grid-template-columns: 1fr; gap: 28px; }
     .modal-side { position: static; }
   }
 
-  /* タブレット中間サイズ */
+  /* ã¿ãã¬ããä¸­éãµã¤ãº */
   @media (min-width: 641px) and (max-width: 960px) {
     .modal { padding: 48px 40px; }
     .modal-inner { max-width: 640px; }
@@ -768,7 +772,7 @@
     .modal-body { font-size: 15px; }
   }
 
-  /* タップ操作を主にする端末はアクティブ表現を強める */
+  /* ã¿ããæä½ãä¸»ã«ããç«¯æ«ã¯ã¢ã¯ãã£ãè¡¨ç¾ãå¼·ãã */
   @media (hover: none) {
     .stage:hover { transform: none; }
     .chain .bra:hover { opacity: .5; color: var(--subt); }
@@ -803,7 +807,7 @@
 <div class="frame">
 
   <section class="lead">
-    <h1>属人から事業横断推進へ。<br class="br-md">事業の位相を、<br class="br-sm">段階的に整える。</h1>
+    <h1>å±äººããäºæ¥­æ¨ªæ­æ¨é²ã¸ã<br class="br-md">äºæ¥­ã®ä½ç¸ãã<br class="br-sm">æ®µéçã«æ´ããã</h1>
   </section>
 
   <section class="stage-area">
@@ -822,7 +826,7 @@
 <!-- Modal -->
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal" id="modal">
-    <button class="modal-close" id="modalClose" aria-label="閉じる">×</button>
+    <button class="modal-close" id="modalClose" aria-label="éãã">Ã</button>
     <div class="plan-badge" id="modalPlan"></div>
     <div class="modal-inner">
       <h2 class="modal-title" id="modalTitle"></h2>
@@ -830,50 +834,50 @@
       <div class="modal-cols">
         <div class="modal-main">
           <div class="modal-section">
-            <div class="modal-label">よくある現状</div>
+            <div class="modal-label">ããããç¾ç¶</div>
             <ul class="flat-list" id="modalCurrentState"></ul>
           </div>
           <div class="modal-section">
-            <div class="modal-label">よくある課題</div>
+            <div class="modal-label">ããããèª²é¡</div>
             <ul class="flat-list flat-list--challenge" id="modalChallenges"></ul>
           </div>
           <div class="modal-section">
-            <div class="modal-label">Nouma の支援領域</div>
+            <div class="modal-label">Nouma ã®æ¯æ´é å</div>
             <div class="modal-support-grid" id="modalSupport"></div>
           </div>
         </div>
         <aside class="modal-side">
           <div class="side-block">
-            <div class="modal-label">期待される効果</div>
+            <div class="modal-label">æå¾ãããå¹æ</div>
             <ul class="outcomes-list" id="modalOutcomes"></ul>
           </div>
           <div class="estimate-panel" id="estimatePanel">
-            <div class="modal-label">概算お見積り</div>
-            <div class="estimate-hint" id="estimateHint">左の支援領域をタップして<br>必要な項目を選択してください</div>
+            <div class="modal-label">æ¦ç®ãè¦ç©ã</div>
+            <div class="estimate-hint" id="estimateHint">å·¦ã®æ¯æ´é åãã¿ãããã¦<br>å¿è¦ãªé ç®ãé¸æãã¦ãã ãã</div>
             <div class="estimate-result" id="estimateResult" hidden>
               <div class="est-row">
-                <span class="est-label">概算費用</span>
-                <span class="est-value" id="estPrice">—</span>
+                <span class="est-label">æ¦ç®è²»ç¨</span>
+                <span class="est-value" id="estPrice">â</span>
               </div>
               <div class="est-row">
-                <span class="est-label">想定期間</span>
-                <span class="est-value" id="estWeeks">—</span>
+                <span class="est-label">æ³å®æé</span>
+                <span class="est-value" id="estWeeks">â</span>
               </div>
               <div class="est-row est-row--lead">
-                <span class="est-label">リードタイム</span>
-                <span class="est-value" id="estLead">—</span>
+                <span class="est-label">ãªã¼ãã¿ã¤ã </span>
+                <span class="est-value" id="estLead">â</span>
               </div>
-              <div class="est-note">※実際のご提案時に正式お見積りいたします</div>
+              <div class="est-note">â»å®éã®ãææ¡æã«æ­£å¼ãè¦ç©ããããã¾ã</div>
             </div>
           </div>
           <div class="side-cta">
-            <p class="cta-text">気になる支援領域があれば<br>まずはお気軽にご相談ください</p>
-            <a class="cta-btn" href="https://nouma.co.jp/contact" target="_top" id="modalCtaBtn">無料相談を申し込む</a>
+            <p class="cta-text">æ°ã«ãªãæ¯æ´é åãããã°<br>ã¾ãã¯ãæ°è»½ã«ãç¸è«ãã ãã</p>
+            <a class="cta-btn" href="https://nouma.co.jp/contact" target="_top" id="modalCtaBtn">ç¡æç¸è«ãç³ãè¾¼ã</a>
           </div>
         </aside>
       </div>
       <div class="modal-actions">
-        <button class="modal-close-btn" id="modalCloseBtn">閉じる</button>
+        <button class="modal-close-btn" id="modalCloseBtn">éãã</button>
       </div>
     </div>
   </div>
@@ -885,144 +889,144 @@ const TOOL = '#7A8FA8';
 
 const STAGES = [
   {
-    num: '00', ket: '|0⟩', name: 'Manual', ja: '属人業務',
-    sub: 'As-is ／ 属人化フェーズ',
-    body: 'メンバーはバラバラに散らばり、<span class="k">それぞれのミッション、ノウハウ、業務</span>を行う。',
-    plan: { label: '無料', sub: 'FREE', isFree: true },
+    num: '00', ket: '|0â©', name: 'Manual', ja: 'å±äººæ¥­å',
+    sub: 'As-is ï¼ å±äººåãã§ã¼ãº',
+    body: 'ã¡ã³ãã¼ã¯ãã©ãã©ã«æ£ãã°ãã<span class="k">ããããã®ããã·ã§ã³ããã¦ãã¦ãæ¥­å</span>ãè¡ãã',
+    plan: { label: 'ç¡æ', sub: 'FREE', isFree: true },
     currentState: [
-      'メンバーが個人で動いている',
-      'やり方は人それぞれ',
-      '経験と感覚で業務を回している'
+      'ã¡ã³ãã¼ãåäººã§åãã¦ãã',
+      'ããæ¹ã¯äººãããã',
+      'çµé¨ã¨æè¦ã§æ¥­åãåãã¦ãã'
     ],
     challenges: [
-      '担当者がいないと業務が止まる',
-      '新人が育つのに時間がかかる',
-      'どこから改善するか判断できない'
+      'æå½èãããªãã¨æ¥­åãæ­¢ã¾ã',
+      'æ°äººãè²ã¤ã®ã«æéãããã',
+      'ã©ãããæ¹åãããå¤æ­ã§ããªã'
     ],
     support: [
-      { t: '業務の見える化', d: '誰が何をしているかを整理する', icon: 'map', free: true },
-      { t: '課題の整理', d: '回らない理由を言葉にする', icon: 'doc', free: true },
-      { t: '改善の道筋づくり', d: '進める順番を明確にする', icon: 'chart', free: true }
+      { t: 'æ¥­åã®è¦ããå', d: 'èª°ãä½ããã¦ããããæ´çãã', icon: 'map', free: true },
+      { t: 'èª²é¡ã®æ´ç', d: 'åããªãçç±ãè¨èã«ãã', icon: 'doc', free: true },
+      { t: 'æ¹åã®éç­ã¥ãã', d: 'é²ããé çªãæç¢ºã«ãã', icon: 'chart', free: true }
     ],
-    leadTime: '着手まで約1週間',
+    leadTime: 'çæã¾ã§ç´1é±é',
     outcomes: [
-      { m: '見えるようになる', v: '組織の問題と優先順位' },
-      { m: '費用', v: '無料（最大2週間）' },
-      { m: 'お渡しするもの', v: '見える化資料／課題一覧／改善計画' }
+      { m: 'è¦ããããã«ãªã', v: 'çµç¹ã®åé¡ã¨åªåé ä½' },
+      { m: 'è²»ç¨', v: 'ç¡æï¼æå¤§2é±éï¼' },
+      { m: 'ãæ¸¡ããããã®', v: 'è¦ããåè³æï¼èª²é¡ä¸è¦§ï¼æ¹åè¨ç»' }
     ]
   },
   {
-    num: '01', ket: '|1⟩', name: 'Standard', ja: '標準化',
-    sub: 'Standardization ／ 標準化',
-    body: '業務フロー・役割・判断基準を整え、<span class="k">同じミッションで動く</span>ようになる。組織としてまとまり始める。',
-    plan: { label: 'Basic Plan', sub: '標準プラン', isFree: false },
+    num: '01', ket: '|1â©', name: 'Standard', ja: 'æ¨æºå',
+    sub: 'Standardization ï¼ æ¨æºå',
+    body: 'æ¥­åãã­ã¼ã»å½¹å²ã»å¤æ­åºæºãæ´ãã<span class="k">åãããã·ã§ã³ã§åã</span>ããã«ãªããçµç¹ã¨ãã¦ã¾ã¨ã¾ãå§ããã',
+    plan: { label: 'Basic Plan', sub: 'æ¨æºãã©ã³', isFree: false },
     currentState: [
-      '業務を整え始めた段階',
-      'チームで同じ目標を追いたい',
-      '人を増やしても回したい'
+      'æ¥­åãæ´ãå§ããæ®µé',
+      'ãã¼ã ã§åãç®æ¨ãè¿½ããã',
+      'äººãå¢ããã¦ãåããã'
     ],
     challenges: [
-      'マニュアルが整っていない',
-      '責任の所在が曖昧',
-      '評価のものさしが揃っていない'
+      'ããã¥ã¢ã«ãæ´ã£ã¦ããªã',
+      'è²¬ä»»ã®æå¨ãææ§',
+      'è©ä¾¡ã®ãã®ãããæã£ã¦ããªã'
     ],
     support: [
-      { t: '業務マニュアル整備', d: '誰でも同じ品質で動ける仕組み', icon: 'doc', price: [60, 150], weeks: [4, 8] },
-      { t: '役割と責任の明確化', d: '誰が決めるかを整える', icon: 'people', price: [40, 100], weeks: [3, 6] },
-      { t: '評価指標の設計', d: 'チーム共通のものさしをつくる', icon: 'dashboard', price: [50, 120], weeks: [3, 6] },
-      { t: '定着までの伴走', d: '仕組みが現場で回るまで支援', icon: 'shield', price: [30, 60], weeks: [4, 12], monthly: true }
+      { t: 'æ¥­åããã¥ã¢ã«æ´å', d: 'èª°ã§ãåãåè³ªã§åããä»çµã¿', icon: 'doc', price: [60, 150], weeks: [4, 8] },
+      { t: 'å½¹å²ã¨è²¬ä»»ã®æç¢ºå', d: 'èª°ãæ±ºããããæ´ãã', icon: 'people', price: [40, 100], weeks: [3, 6] },
+      { t: 'è©ä¾¡ææ¨ã®è¨­è¨', d: 'ãã¼ã å±éã®ãã®ãããã¤ãã', icon: 'dashboard', price: [50, 120], weeks: [3, 6] },
+      { t: 'å®çã¾ã§ã®ä¼´èµ°', d: 'ä»çµã¿ãç¾å ´ã§åãã¾ã§æ¯æ´', icon: 'shield', price: [30, 60], weeks: [4, 12], monthly: true }
     ],
-    leadTime: '着手まで約2週間',
+    leadTime: 'çæã¾ã§ç´2é±é',
     outcomes: [
-      { m: '業務の時間', v: '平均 20〜30% の短縮' },
-      { m: '育成スピード', v: '新人立ち上がりが約2倍速く' },
-      { m: 'お渡しするもの', v: 'マニュアル／役割表／評価指標／運用ガイド' }
+      { m: 'æ¥­åã®æé', v: 'å¹³å 20ã30% ã®ç­ç¸®' },
+      { m: 'è²æã¹ãã¼ã', v: 'æ°äººç«ã¡ä¸ãããç´2åéã' },
+      { m: 'ãæ¸¡ããããã®', v: 'ããã¥ã¢ã«ï¼å½¹å²è¡¨ï¼è©ä¾¡ææ¨ï¼éç¨ã¬ã¤ã' }
     ]
   },
   {
-    num: '02', ket: '|2⟩', name: 'DX / AX', ja: '業務基盤の再設計',
-    sub: 'Re-architecture ／ 業務基盤の再設計',
-    body: 'デジタル基盤・ツール・データという<span class="k">別のサポート</span>が生まれ、既存の組織と接続される。<br>人間とデジタルの異なる二つのものが、一つの組織として動き始める。',
-    plan: { label: 'Advanced Plan', sub: 'アドバンスプラン', isFree: false },
+    num: '02', ket: '|2â©', name: 'DX / AX', ja: 'æ¥­ååºç¤ã®åè¨­è¨',
+    sub: 'Re-architecture ï¼ æ¥­ååºç¤ã®åè¨­è¨',
+    body: 'ãã¸ã¿ã«åºç¤ã»ãã¼ã«ã»ãã¼ã¿ã¨ãã<span class="k">å¥ã®ãµãã¼ã</span>ãçã¾ããæ¢å­ã®çµç¹ã¨æ¥ç¶ãããã<br>äººéã¨ãã¸ã¿ã«ã®ç°ãªãäºã¤ã®ãã®ããä¸ã¤ã®çµç¹ã¨ãã¦åãå§ããã',
+    plan: { label: 'Advanced Plan', sub: 'ã¢ããã³ã¹ãã©ã³', isFree: false },
     currentState: [
-      '業務は整ったが手作業が多い',
-      'データが各所に散らばっている',
-      'ツール導入を検討している'
+      'æ¥­åã¯æ´ã£ããæä½æ¥­ãå¤ã',
+      'ãã¼ã¿ãåæã«æ£ãã°ã£ã¦ãã',
+      'ãã¼ã«å°å¥ãæ¤è¨ãã¦ãã'
     ],
     challenges: [
-      'エクセル管理が限界',
-      'データを集めるのに時間がかかる',
-      '導入したツールが使われない'
+      'ã¨ã¯ã»ã«ç®¡çãéç',
+      'ãã¼ã¿ãéããã®ã«æéãããã',
+      'å°å¥ãããã¼ã«ãä½¿ãããªã'
     ],
     support: [
-      { t: 'ツール選定と導入', d: '業務に合うツールを選び定着まで支援', icon: 'tool', price: [80, 200], weeks: [6, 12] },
-      { t: 'データ基盤の整備', d: '判断に使えるデータの土台をつくる', icon: 'database', price: [150, 400], weeks: [12, 24] },
-      { t: 'システムの連携設計', d: 'バラバラな仕組みを一つにつなぐ', icon: 'connect', price: [100, 250], weeks: [8, 16] },
-      { t: '業務のデジタル化', d: '紙・エクセル業務をオンライン化', icon: 'flow', price: [80, 200], weeks: [8, 16] },
-      { t: 'セキュリティ設計', d: 'アクセス権限と情報保護を整備', icon: 'shield', price: [60, 150], weeks: [4, 8] },
-      { t: '導入後の定着支援', d: '使われ続ける運用づくり', icon: 'gear', price: [40, 80], weeks: [4, 12], monthly: true }
+      { t: 'ãã¼ã«é¸å®ã¨å°å¥', d: 'æ¥­åã«åããã¼ã«ãé¸ã³å®çã¾ã§æ¯æ´', icon: 'tool', price: [80, 200], weeks: [6, 12] },
+      { t: 'ãã¼ã¿åºç¤ã®æ´å', d: 'å¤æ­ã«ä½¿ãããã¼ã¿ã®åå°ãã¤ãã', icon: 'database', price: [150, 400], weeks: [12, 24] },
+      { t: 'ã·ã¹ãã ã®é£æºè¨­è¨', d: 'ãã©ãã©ãªä»çµã¿ãä¸ã¤ã«ã¤ãªã', icon: 'connect', price: [100, 250], weeks: [8, 16] },
+      { t: 'æ¥­åã®ãã¸ã¿ã«å', d: 'ç´ã»ã¨ã¯ã»ã«æ¥­åããªã³ã©ã¤ã³å', icon: 'flow', price: [80, 200], weeks: [8, 16] },
+      { t: 'ã»ã­ã¥ãªãã£è¨­è¨', d: 'ã¢ã¯ã»ã¹æ¨©éã¨æå ±ä¿è­·ãæ´å', icon: 'shield', price: [60, 150], weeks: [4, 8] },
+      { t: 'å°å¥å¾ã®å®çæ¯æ´', d: 'ä½¿ããç¶ããéç¨ã¥ãã', icon: 'gear', price: [40, 80], weeks: [4, 12], monthly: true }
     ],
-    leadTime: '着手まで約3〜4週間',
+    leadTime: 'çæã¾ã§ç´3ã4é±é',
     outcomes: [
-      { m: '手作業の削減', v: '対象業務の 30〜50% を自動化' },
-      { m: '判断スピード', v: 'リアルタイム把握で 3〜5倍' },
-      { m: 'お渡しするもの', v: '仕組み設計図／データ基盤／運用マニュアル' }
+      { m: 'æä½æ¥­ã®åæ¸', v: 'å¯¾è±¡æ¥­åã® 30ã50% ãèªåå' },
+      { m: 'å¤æ­ã¹ãã¼ã', v: 'ãªã¢ã«ã¿ã¤ã ææ¡ã§ 3ã5å' },
+      { m: 'ãæ¸¡ããããã®', v: 'ä»çµã¿è¨­è¨å³ï¼ãã¼ã¿åºç¤ï¼éç¨ããã¥ã¢ã«' }
     ]
   },
   {
-    num: '03', ket: '|3⟩', name: 'AI', ja: 'AI活用',
-    sub: 'AI Implementation ／ AI活用',
-    body: '統合された事業や組織の中にAIが入り込み、<span class="k">判断・生成・予測</span>が業務フローに織り込まれる。<br>事業や組織同士の結合が密になっていく。',
-    plan: { label: 'AI Plan', sub: 'AIプラン', isFree: false },
+    num: '03', ket: '|3â©', name: 'AI', ja: 'AIæ´»ç¨',
+    sub: 'AI Implementation ï¼ AIæ´»ç¨',
+    body: 'çµ±åãããäºæ¥­ãçµç¹ã®ä¸­ã«AIãå¥ãè¾¼ã¿ã<span class="k">å¤æ­ã»çæã»äºæ¸¬</span>ãæ¥­åãã­ã¼ã«ç¹ãè¾¼ã¾ããã<br>äºæ¥­ãçµç¹åå£«ã®çµåãå¯ã«ãªã£ã¦ããã',
+    plan: { label: 'AI Plan', sub: 'AIãã©ã³', isFree: false },
     currentState: [
-      'デジタル化は進んだ',
-      'データは整い始めている',
-      'AI活用を本格化したい'
+      'ãã¸ã¿ã«åã¯é²ãã ',
+      'ãã¼ã¿ã¯æ´ãå§ãã¦ãã',
+      'AIæ´»ç¨ãæ¬æ ¼åããã'
     ],
     challenges: [
-      'AIを試したいが何から始めるか分からない',
-      'お試しで終わってしまう',
-      '人手不足をAIで解決したい'
+      'AIãè©¦ããããä½ããå§ãããåãããªã',
+      'ãè©¦ãã§çµãã£ã¦ãã¾ã',
+      'äººæä¸è¶³ãAIã§è§£æ±ºããã'
     ],
     support: [
-      { t: 'AI活用の全体設計', d: 'どこにどう使うかを設計する', icon: 'ai', price: [100, 200], weeks: [4, 8] },
-      { t: '業務AIの開発・導入', d: '営業・CS・バックオフィスのAIを実装', icon: 'robot', price: [200, 500], weeks: [12, 24] },
-      { t: '本番運用まで伴走', d: 'お試しで終わらせず実運用へ', icon: 'launch', price: [80, 150], weeks: [4, 12], monthly: true },
-      { t: '人とAIの役割分担', d: '任せる業務と人が担う業務を整理', icon: 'sync', price: [60, 120], weeks: [4, 8] }
+      { t: 'AIæ´»ç¨ã®å¨ä½è¨­è¨', d: 'ã©ãã«ã©ãä½¿ãããè¨­è¨ãã', icon: 'ai', price: [100, 200], weeks: [4, 8] },
+      { t: 'æ¥­åAIã®éçºã»å°å¥', d: 'å¶æ¥­ã»CSã»ããã¯ãªãã£ã¹ã®AIãå®è£', icon: 'robot', price: [200, 500], weeks: [12, 24] },
+      { t: 'æ¬çªéç¨ã¾ã§ä¼´èµ°', d: 'ãè©¦ãã§çµããããå®éç¨ã¸', icon: 'launch', price: [80, 150], weeks: [4, 12], monthly: true },
+      { t: 'äººã¨AIã®å½¹å²åæ', d: 'ä»»ããæ¥­åã¨äººãæãæ¥­åãæ´ç', icon: 'sync', price: [60, 120], weeks: [4, 8] }
     ],
-    leadTime: '着手まで約3〜4週間',
+    leadTime: 'çæã¾ã§ç´3ã4é±é',
     outcomes: [
-      { m: '対応スピード', v: '判断業務が 10倍以上' },
-      { m: '稼働時間', v: '24時間365日の自動対応' },
-      { m: 'お渡しするもの', v: 'AIシステム／運用体制／監視の仕組み' }
+      { m: 'å¯¾å¿ã¹ãã¼ã', v: 'å¤æ­æ¥­åã 10åä»¥ä¸' },
+      { m: 'ç¨¼åæé', v: '24æé365æ¥ã®èªåå¯¾å¿' },
+      { m: 'ãæ¸¡ããããã®', v: 'AIã·ã¹ãã ï¼éç¨ä½å¶ï¼ç£è¦ã®ä»çµã¿' }
     ]
   },
   {
-    num: '04', ket: '|4⟩', name: 'RevOps', ja: '事業横断推進',
-    sub: 'Aligned State ／ 事業横断推進',
-    body: '部分的な個別最適から<span class="k">全体最適</span>へ。事業全体がひとつになり同じ位相で連動する状態を実現。<br>スピーディーで自律的なリテール組織を形成します。',
-    plan: { label: 'Enterprise', sub: 'エンタープライズプラン', isFree: false },
+    num: '04', ket: '|4â©', name: 'RevOps', ja: 'äºæ¥­æ¨ªæ­æ¨é²',
+    sub: 'Aligned State ï¼ äºæ¥­æ¨ªæ­æ¨é²',
+    body: 'é¨åçãªåå¥æé©ãã<span class="k">å¨ä½æé©</span>ã¸ãäºæ¥­å¨ä½ãã²ã¨ã¤ã«ãªãåãä½ç¸ã§é£åããç¶æãå®ç¾ã<br>ã¹ãã¼ãã£ã¼ã§èªå¾çãªãªãã¼ã«çµç¹ãå½¢æãã¾ãã',
+    plan: { label: 'Enterprise', sub: 'ã¨ã³ã¿ã¼ãã©ã¤ãºãã©ã³', isFree: false },
     currentState: [
-      '各部門は機能している',
-      '次の成長フェーズを狙いたい',
-      '全社の連携を強化したい'
+      'åé¨éã¯æ©è½ãã¦ãã',
+      'æ¬¡ã®æé·ãã§ã¼ãºãçããã',
+      'å¨ç¤¾ã®é£æºãå¼·åããã'
     ],
     challenges: [
-      '部門ごとの連携が弱い',
-      '経営判断が遅くなる',
-      '全社最適にならない'
+      'é¨éãã¨ã®é£æºãå¼±ã',
+      'çµå¶å¤æ­ãéããªã',
+      'å¨ç¤¾æé©ã«ãªããªã'
     ],
     support: [
-      { t: '部門統合の体制づくり', d: '営業・マーケ・CSを一体運営', icon: 'people', price: [150, 300], weeks: [12, 24] },
-      { t: '全社データの一元化', d: 'どこからでも見える経営の可視化', icon: 'dashboard', price: [200, 500], weeks: [12, 24] },
-      { t: '共通指標の設計', d: '全社で同じものさしを揃える', icon: 'chart', price: [100, 200], weeks: [8, 16] },
-      { t: '長期的な伴走支援', d: '月次・四半期で改善を共に進める', icon: 'growth', price: [100, 200], weeks: [4, 12], monthly: true }
+      { t: 'é¨éçµ±åã®ä½å¶ã¥ãã', d: 'å¶æ¥­ã»ãã¼ã±ã»CSãä¸ä½éå¶', icon: 'people', price: [150, 300], weeks: [12, 24] },
+      { t: 'å¨ç¤¾ãã¼ã¿ã®ä¸åå', d: 'ã©ãããã§ãè¦ããçµå¶ã®å¯è¦å', icon: 'dashboard', price: [200, 500], weeks: [12, 24] },
+      { t: 'å±éææ¨ã®è¨­è¨', d: 'å¨ç¤¾ã§åããã®ãããæãã', icon: 'chart', price: [100, 200], weeks: [8, 16] },
+      { t: 'é·æçãªä¼´èµ°æ¯æ´', d: 'ææ¬¡ã»ååæã§æ¹åãå±ã«é²ãã', icon: 'growth', price: [100, 200], weeks: [4, 12], monthly: true }
     ],
-    leadTime: '着手まで約4週間',
+    leadTime: 'çæã¾ã§ç´4é±é',
     outcomes: [
-      { m: '事業の成長', v: '部門横断連携で 1.5〜2倍を狙う' },
-      { m: '組織の連携', v: '全社が一つの方向で動ける状態' },
-      { m: 'お渡しするもの', v: '全社指標／経営の見える化／運用体制' }
+      { m: 'äºæ¥­ã®æé·', v: 'é¨éæ¨ªæ­é£æºã§ 1.5ã2åãçã' },
+      { m: 'çµç¹ã®é£æº', v: 'å¨ç¤¾ãä¸ã¤ã®æ¹åã§åããç¶æ' },
+      { m: 'ãæ¸¡ããããã®', v: 'å¨ç¤¾ææ¨ï¼çµå¶ã®è¦ããåï¼éç¨ä½å¶' }
     ]
   }
 ];
@@ -1049,21 +1053,21 @@ const ICONS = {
 
 let active = 1;
 
-/* TOPページ版：各カードは <a> タグ。クリックで事業内容ページの該当フェーズへ遷移 */
+/* TOPãã¼ã¸çï¼åã«ã¼ãã¯ <a> ã¿ã°ãã¯ãªãã¯ã§äºæ¥­åå®¹ãã¼ã¸ã®è©²å½ãã§ã¼ãºã¸é·ç§» */
 const PHASE_HASH = ['manual', 'standard', 'dx', 'ai', 'revops'];
 const stagesEl = document.getElementById('stages');
 STAGES.forEach((s, i) => {
   if (i > 0) {
     const arr = document.createElement('span');
     arr.className = 'stage-arrow';
-    arr.textContent = '›';
+    arr.textContent = 'âº';
     stagesEl.appendChild(arr);
   }
   const a = document.createElement('a');
   a.className = 'stage' + (i === active ? ' active' : '');
   a.dataset.idx = i;
   a.href = `https://nouma.co.jp/service#${PHASE_HASH[i]}`;
-  a.target = '_top'; // iframe親ウィンドウごと遷移
+  a.target = '_top'; // iframeè¦ªã¦ã£ã³ãã¦ãã¨é·ç§»
   a.style.textDecoration = 'none';
   a.innerHTML = `
     <div><span class="name">${s.ja}</span></div>
@@ -1078,7 +1082,7 @@ function setActive(i) {
   renderDetail(i);
   setPhase(i);
 }
-/* hover で粒子・詳細を更新（PC向け、遷移は <a> のクリックに任せる） */
+/* hover ã§ç²å­ã»è©³ç´°ãæ´æ°ï¼PCåããé·ç§»ã¯ <a> ã®ã¯ãªãã¯ã«ä»»ããï¼ */
 document.querySelectorAll('.stage').forEach(el => {
   el.addEventListener('mouseenter', () => setActive(+el.dataset.idx));
 });
@@ -1088,8 +1092,8 @@ const modalBackdrop = document.getElementById('modalBackdrop');
 function openModal(i) {
   const s = STAGES[i];
   document.getElementById('modalTitle').innerHTML = `<span class="num">${s.num}</span>${s.ja}`;
-  document.getElementById('modalTitleEn').textContent = `${s.name} ／ ${s.sub.split(' ／ ')[0]}`;
-  // よくある現状
+  document.getElementById('modalTitleEn').textContent = `${s.name} ï¼ ${s.sub.split(' ï¼ ')[0]}`;
+  // ããããç¾ç¶
   const cur = document.getElementById('modalCurrentState');
   cur.innerHTML = '';
   (s.currentState || []).forEach(text => {
@@ -1097,7 +1101,7 @@ function openModal(i) {
     li.textContent = text;
     cur.appendChild(li);
   });
-  // よくある課題
+  // ããããèª²é¡
   const ch = document.getElementById('modalChallenges');
   ch.innerHTML = '';
   (s.challenges || []).forEach(text => {
@@ -1105,7 +1109,7 @@ function openModal(i) {
     li.textContent = text;
     ch.appendChild(li);
   });
-  // Nouma の支援領域（クリックで選択トグル）
+  // Nouma ã®æ¯æ´é åï¼ã¯ãªãã¯ã§é¸æãã°ã«ï¼
   const sup = document.getElementById('modalSupport');
   sup.innerHTML = '';
   s.support.forEach((item, idx) => {
@@ -1124,11 +1128,11 @@ function openModal(i) {
     sup.appendChild(card);
   });
   updateEstimate(s);
-  // プランバッジ
+  // ãã©ã³ããã¸
   const planEl = document.getElementById('modalPlan');
   planEl.className = 'plan-badge' + (s.plan.isFree ? ' is-free' : '');
   planEl.innerHTML = `<span class="plan-label">${s.plan.label}</span><span class="plan-sub">${s.plan.sub}</span>`;
-  // 期待される効果
+  // æå¾ãããå¹æ
   const out = document.getElementById('modalOutcomes');
   out.innerHTML = '';
   (s.outcomes || []).forEach(o => {
@@ -1143,16 +1147,16 @@ function openModal(i) {
 function updateEstimate(stage) {
   const hint = document.getElementById('estimateHint');
   const result = document.getElementById('estimateResult');
-  // Manual（無料フェーズ）の場合
+  // Manualï¼ç¡æãã§ã¼ãºï¼ã®å ´å
   if (stage.plan && stage.plan.isFree) {
     hint.hidden = true;
     result.hidden = false;
-    document.getElementById('estPrice').textContent = '無料';
-    document.getElementById('estWeeks').textContent = '最大2週間';
-    document.getElementById('estLead').textContent = stage.leadTime || '着手まで約1週間';
+    document.getElementById('estPrice').textContent = 'ç¡æ';
+    document.getElementById('estWeeks').textContent = 'æå¤§2é±é';
+    document.getElementById('estLead').textContent = stage.leadTime || 'çæã¾ã§ç´1é±é';
     return;
   }
-  // 選択されたカードの集計
+  // é¸æãããã«ã¼ãã®éè¨
   const selected = Array.from(document.querySelectorAll('.sup-card.is-selected'));
   if (selected.length === 0) {
     hint.hidden = false;
@@ -1172,7 +1176,7 @@ function updateEstimate(stage) {
       priceMin += item.price[0];
       priceMax += item.price[1];
     }
-    // 期間は最大ベース（並行作業前提で最長項目に揃える）
+    // æéã¯æå¤§ãã¼ã¹ï¼ä¸¦è¡ä½æ¥­åæã§æé·é ç®ã«æããï¼
     if (item.weeks) {
       weeksMin = Math.max(weeksMin, item.weeks[0]);
       weeksMax = Math.max(weeksMax, item.weeks[1]);
@@ -1180,18 +1184,18 @@ function updateEstimate(stage) {
   });
   hint.hidden = true;
   result.hidden = false;
-  // 費用表示
+  // è²»ç¨è¡¨ç¤º
   let priceStr = '';
-  if (priceMax > 0) priceStr = `¥${priceMin.toLocaleString()}〜${priceMax.toLocaleString()}万円`;
+  if (priceMax > 0) priceStr = `Â¥${priceMin.toLocaleString()}ã${priceMax.toLocaleString()}ä¸å`;
   if (monthlyMax > 0) {
-    const monthlyStr = `¥${monthlyMin.toLocaleString()}〜${monthlyMax.toLocaleString()}万円/月`;
+    const monthlyStr = `Â¥${monthlyMin.toLocaleString()}ã${monthlyMax.toLocaleString()}ä¸å/æ`;
     priceStr = priceStr ? `${priceStr}<br><span style="font-size:.9em;color:var(--subt)">+ ${monthlyStr}</span>` : monthlyStr;
   }
-  document.getElementById('estPrice').innerHTML = priceStr || '—';
-  // 期間表示
-  const weeksStr = weeksMin === weeksMax ? `約${weeksMin}週間` : `約${weeksMin}〜${weeksMax}週間`;
+  document.getElementById('estPrice').innerHTML = priceStr || 'â';
+  // æéè¡¨ç¤º
+  const weeksStr = weeksMin === weeksMax ? `ç´${weeksMin}é±é` : `ç´${weeksMin}ã${weeksMax}é±é`;
   document.getElementById('estWeeks').textContent = weeksStr;
-  document.getElementById('estLead').textContent = stage.leadTime || '着手まで約3〜4週間';
+  document.getElementById('estLead').textContent = stage.leadTime || 'çæã¾ã§ç´3ã4é±é';
 }
 
 function closeModal() {
@@ -1207,10 +1211,10 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal
 function renderDetail(i) {
   const s = STAGES[i];
   document.getElementById('detailBody').innerHTML = `
-    <div class="detail-title fade-in">${s.name}<span style="color:var(--subt);font-weight:400;margin-left:10px;font-size:.85em;">— ${s.ja}</span></div>
+    <div class="detail-title fade-in">${s.name}<span style="color:var(--subt);font-weight:400;margin-left:10px;font-size:.85em;">â ${s.ja}</span></div>
     <p class="detail-text fade-in" style="animation-delay:.05s">${s.body}</p>
   `;
-  document.getElementById('phaseCap').innerHTML = `Phase <b>${s.num} ／ ${s.name}</b>`;
+  document.getElementById('phaseCap').innerHTML = `Phase <b>${s.num} ï¼ ${s.name}</b>`;
 }
 
 /* ===== Ambient (vision-style drift) ===== */
@@ -1282,7 +1286,7 @@ function srand(seed) {
   };
 }
 
-// 端末スペックに応じて粒子数を自動調整
+// ç«¯æ«ã¹ããã¯ã«å¿ãã¦ç²å­æ°ãèªåèª¿æ´
 const VW = window.innerWidth;
 const IS_MOBILE = VW < 768;
 const IS_TABLET = VW >= 768 && VW < 1100;
@@ -1311,14 +1315,14 @@ function initParticles() {
       x: r() * SW, y: r() * SH,
       vx: 0, vy: 0,
       baseR: 1.8 + r() * 2.8,
-      // 既存サイトに合わせた青系バリエーション（明青〜淡青〜ネイビー）
-      baseHue: 215 + (r() - 0.5) * 30,   // 200〜230 のブルー帯
-      baseSat: 55 + r() * 35,             // 55〜90% 高彩度
-      baseLight: 35 + r() * 35,           // 35〜70% 明るさ幅広
+      // æ¢å­ãµã¤ãã«åãããéç³»ããªã¨ã¼ã·ã§ã³ï¼æéãæ·¡éããã¤ãã¼ï¼
+      baseHue: 215 + (r() - 0.5) * 30,   // 200ã230 ã®ãã«ã¼å¸¯
+      baseSat: 55 + r() * 35,             // 55ã90% é«å½©åº¦
+      baseLight: 35 + r() * 35,           // 35ã70% æããå¹åº
       phase: r() * Math.PI * 2,
-      // 画面全体にバラまく固定ホーム座標（Manualで使用）
+      // ç»é¢å¨ä½ã«ãã©ã¾ãåºå®ãã¼ã åº§æ¨ï¼Manualã§ä½¿ç¨ï¼
       homeX: r(), homeY: r(),
-      // 揺らぎ強度（控えめ）
+      // æºããå¼·åº¦ï¼æ§ããï¼
       wobbleAmp: 0.02 + r() * 0.035,
       wobbleSpd: 0.3 + r() * 0.5,
       slotAngle: 0
@@ -1358,7 +1362,7 @@ function resizeScene() {
 window.addEventListener('resize', () => { resizeScene(); });
 requestAnimationFrame(() => { resizeScene(); });
 
-/* phase target state — each frame we ease toward this */
+/* phase target state â each frame we ease toward this */
 const phaseStates = {
   0: 'manual',
   1: 'standard',
@@ -1382,7 +1386,7 @@ let t = 0;
 let lastFrame = 0;
 let isVisible = true;
 
-// 画面外で停止（パフォーマンス節約）
+// ç»é¢å¤ã§åæ­¢ï¼ããã©ã¼ãã³ã¹ç¯ç´ï¼
 if ('IntersectionObserver' in window) {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => { isVisible = e.isIntersecting; });
@@ -1399,12 +1403,12 @@ function drawScene(now) {
   if (now && now - lastFrame < FRAME_INTERVAL) return;
   lastFrame = now || 0;
   t += 1 / TARGET_FPS;
-  // フェーズ遷移を約2倍速に
+  // ãã§ã¼ãºé·ç§»ãç´2åéã«
   blend = Math.min(1, blend + 0.028 * (60 / TARGET_FPS));
 
   sctx.clearRect(0, 0, SW, SH);
 
-  // 粒子の活動領域 = canvas全体に最大限広げる
+  // ç²å­ã®æ´»åé å = canvaså¨ä½ã«æå¤§éåºãã
   const BOX_LEFT   = SW * 0.02;
   const BOX_RIGHT  = SW * 0.98;
   const BOX_TOP    = SH * 0.01;
@@ -1420,8 +1424,8 @@ function drawScene(now) {
     // returns {tx, ty, tr, hue, light, alpha}
     if (group === 'primary') {
       if (phase === 'manual') {
-        // ボックス内にバラまかれた固定ホーム + 各自の小さな揺らぎ
-        // 揺らぎぶんのマージンを引いた安全領域にhomeを配置
+        // ããã¯ã¹åã«ãã©ã¾ãããåºå®ãã¼ã  + åèªã®å°ããªæºãã
+        // æºããã¶ãã®ãã¼ã¸ã³ãå¼ããå®å¨é åã«homeãéç½®
         const margin = 0.10;
         const safeW = boxW * (1 - margin * 2);
         const safeH = boxH * (1 - margin * 2);
@@ -1467,7 +1471,7 @@ function drawScene(now) {
         return {
           tx: cx + Math.cos(ang) * R * 1.0,
           ty: cy + Math.sin(ang) * R * 1.0,
-          tr: p.baseR * 0.85 * 2,   // 各粒子が baseR × 1.7 倍に拡大
+          tr: p.baseR * 0.85 * 2,   // åç²å­ã baseR Ã 1.7 åã«æ¡å¤§
           hue: 220, sat: 80, light: 28, alpha: 1
         };
       }
@@ -1499,7 +1503,7 @@ function drawScene(now) {
         };
       }
       if (phase === 'revops') {
-        // toolsは各primaryスロットに重ねて吸着 → 一粒一粒が「人+AI+ツール」の融合体として大きく見える
+        // toolsã¯åprimaryã¹ã­ããã«éã­ã¦å¸ç â ä¸ç²ä¸ç²ããäºº+AI+ãã¼ã«ãã®èåä½ã¨ãã¦å¤§ããè¦ãã
         const slotIdx = idx % N_PRIMARY;
         const ang = (slotIdx / N_PRIMARY) * Math.PI * 2 + t * 0.25;
         return {
@@ -1547,7 +1551,7 @@ function drawScene(now) {
       const alpha = lerp(prev.alpha, cur.alpha, blend);
 
       // ease motion
-      // 動きを速めて遷移を滑らかに
+      // åããéãã¦é·ç§»ãæ»ããã«
       p.x += (tx - p.x) * 0.15;
       p.y += (ty - p.y) * 0.15;
 
