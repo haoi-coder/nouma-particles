@@ -661,70 +661,70 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding: 24px 16px 40px;
+      gap: 8px;
+      padding: 12px 12px 16px;
       height: auto; min-height: auto;
     }
     .lead h1 {
-      font-size: 15px;
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.45;
       letter-spacing: 0.02em;
     }
     .lead p {
-      font-size: 11px;
-      line-height: 1.65;
+      font-size: 10px;
+      line-height: 1.55;
       padding: 0 4px;
     }
 
     /* チェーン：折返しOK、コンパクト */
     .chain {
-      gap: 6px;
-      font-size: 11px;
+      gap: 4px;
+      font-size: 10px;
       flex-wrap: wrap;
-      padding: 4px;
+      padding: 2px;
     }
     .chain .bra {
-      padding: 4px 6px;
-      letter-spacing: 0.04em;
+      padding: 3px 5px;
+      letter-spacing: 0.03em;
     }
     .chain .arrow {
-      width: 16px; height: 16px;
-      font-size: 10px;
+      width: 14px; height: 14px;
+      font-size: 9px;
     }
 
-    /* 粒子エリアの高さを固定 */
+    /* 粒子エリアの高さを縮小（iframe内に収めるため） */
     .stage-area {
-      min-height: 240px;
-      max-height: 280px;
+      min-height: 150px;
+      max-height: 180px;
       padding: 0;
     }
     .phase-caption {
-      font-size: 8.5px;
-      letter-spacing: 0.16em;
-      padding-top: 10px;
-      margin-bottom: 10px;
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      padding-top: 6px;
+      margin-bottom: 6px;
     }
 
     /* スマホ：5タブを横並びでコンパクト表示（事業内容ページと統一） */
     .stages {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-      margin-top: 8px;
+      gap: 3px;
+      margin-top: 4px;
       counter-reset: stage-num -1;
       align-items: stretch;
     }
     .stage-arrow { display: none; }
     .stage {
-      padding: 10px 2px;
-      min-height: 76px;
+      padding: 6px 1px;
+      min-height: 52px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       gap: 0;
       cursor: pointer;
-      border-radius: 6px;
+      border-radius: 5px;
       position: relative;
     }
     .stage-body {
@@ -745,18 +745,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
-      min-height: 22px;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      min-height: 18px;
       flex-shrink: 0;
       border-radius: 50%;
       background: rgba(11,31,58,0.06);
       color: var(--subt);
-      font-size: 10px;
+      font-size: 9px;
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
       transition: all .2s;
       box-sizing: border-box;
     }
@@ -765,9 +765,9 @@
       color: #fff;
     }
     .stage .name {
-      font-size: 9.5px;
+      font-size: 8.5px;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.25;
       text-align: center;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -781,11 +781,11 @@
     }
 
     /* 詳細パネル：モーダルがあるので簡略化 */
-    .detail { padding-top: 8px; }
-    .detail-body { padding: 0 8px; text-align: center; }
-    .detail-title { font-size: 14px; margin-bottom: 5px; }
-    .detail-sub { font-size: 10px; margin-bottom: 8px; }
-    .detail-text { font-size: 12px; line-height: 1.75; }
+    .detail { padding-top: 4px; }
+    .detail-body { padding: 0 6px; text-align: center; }
+    .detail-title { font-size: 12px; margin-bottom: 3px; }
+    .detail-sub { font-size: 9px; margin-bottom: 5px; }
+    .detail-text { font-size: 11px; line-height: 1.6; }
     .detail-text br { display: none; }
 
     /* モーダル：モバイル用 */
@@ -1626,28 +1626,29 @@ renderDetail(active);
     var s = document.createElement('style');
     s.textContent = [
       'html, body { overflow-y: auto; height: auto; -webkit-overflow-scrolling: touch; }',
-      '.frame { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 24px 16px 40px; height: auto; min-height: auto; }',
-      '.lead h1 { font-size: 15px; line-height: 1.5; letter-spacing: 0.02em; }',
-      '.lead p { font-size: 11px; line-height: 1.65; padding: 0 4px; }',
-      '.chain { gap: 6px; font-size: 11px; flex-wrap: wrap; padding: 4px; }',
-      '.chain .bra { padding: 4px 6px; letter-spacing: 0.04em; }',
-      '.chain .arrow { width: 16px; height: 16px; font-size: 10px; }',
-      '.stage-area { min-height: 240px; max-height: 280px; padding: 0; }',
-      '.stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 8px; counter-reset: stage-num -1; align-items: stretch; }',
+      '.frame { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 12px 12px 16px; height: auto; min-height: auto; }',
+      '.lead h1 { font-size: 13px; line-height: 1.45; letter-spacing: 0.02em; }',
+      '.lead p { font-size: 10px; line-height: 1.55; padding: 0 4px; }',
+      '.chain { gap: 4px; font-size: 10px; flex-wrap: wrap; padding: 2px; }',
+      '.chain .bra { padding: 3px 5px; letter-spacing: 0.03em; }',
+      '.chain .arrow { width: 14px; height: 14px; font-size: 9px; }',
+      '.stage-area { min-height: 150px; max-height: 180px; padding: 0; }',
+      '.phase-caption { font-size: 8px; letter-spacing: 0.14em; padding-top: 6px; margin-bottom: 6px; }',
+      '.stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 4px; counter-reset: stage-num -1; align-items: stretch; }',
       '.stage-arrow { display: none; }',
-      '.stage { padding: 10px 2px; min-height: 76px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0; cursor: pointer; border-radius: 6px; position: relative; }',
+      '.stage { padding: 6px 1px; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0; cursor: pointer; border-radius: 5px; position: relative; }',
       '.stage-body { width: 100%; height: 100%; flex-direction: column; align-items: center; gap: 0; cursor: pointer; padding: 0; display: flex; justify-content: flex-start; }',
-      '.stage-body::before { content: counter(stage-num); counter-increment: stage-num; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; min-width: 22px; min-height: 22px; flex-shrink: 0; border-radius: 50%; background: rgba(11,31,58,0.06); color: var(--subt); font-size: 10px; font-family: Helvetica Neue, Arial, sans-serif; font-weight: 600; margin-bottom: 6px; transition: all .2s; box-sizing: border-box; }',
+      '.stage-body::before { content: counter(stage-num); counter-increment: stage-num; display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; min-width: 18px; min-height: 18px; flex-shrink: 0; border-radius: 50%; background: rgba(11,31,58,0.06); color: var(--subt); font-size: 9px; font-family: Helvetica Neue, Arial, sans-serif; font-weight: 600; margin-bottom: 3px; transition: all .2s; box-sizing: border-box; }',
       '.stage.active .stage-body::before { background: var(--navy); color: #fff; }',
-      '.stage .name { font-size: 9.5px; font-weight: 600; line-height: 1.3; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }',
+      '.stage .name { font-size: 8.5px; font-weight: 600; line-height: 1.25; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }',
       '.stage .ja { display: none; }',
       '.stage:hover { transform: none; }',
       '.stage.active { background: rgba(11,31,58,0.06); }',
-      '.detail { padding-top: 8px; }',
-      '.detail-body { padding: 0 8px; text-align: center; }',
-      '.detail-title { font-size: 14px; margin-bottom: 5px; }',
-      '.detail-sub { font-size: 10px; margin-bottom: 8px; }',
-      '.detail-text { font-size: 12px; line-height: 1.75; }',
+      '.detail { padding-top: 4px; }',
+      '.detail-body { padding: 0 6px; text-align: center; }',
+      '.detail-title { font-size: 12px; margin-bottom: 3px; }',
+      '.detail-sub { font-size: 9px; margin-bottom: 5px; }',
+      '.detail-text { font-size: 11px; line-height: 1.6; }',
       '.detail-text br { display: none; }'
     ].join('\n');
     document.head.appendChild(s);
