@@ -1584,5 +1584,35 @@ requestAnimationFrame(drawScene);
 /* init */
 renderDetail(active);
 </script>
+  <script>
+// Mobile detection: screen.width works regardless of iframe viewport
+(function() {
+  if (screen.width <= 768) {
+    var s = document.createElement('style');
+    s.textContent = [
+      'html, body { overflow-y: auto; height: auto; -webkit-overflow-scrolling: touch; }',
+      '.frame { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 24px 16px 40px; height: auto; min-height: auto; }',
+      '.lead h1 { font-size: 18px; line-height: 1.55; letter-spacing: 0.03em; }',
+      '.lead p { font-size: 12px; line-height: 1.7; padding: 0 4px; }',
+      '.chain { gap: 6px; font-size: 11px; flex-wrap: wrap; padding: 4px; }',
+      '.chain .bra { padding: 4px 6px; letter-spacing: 0.04em; }',
+      '.chain .arrow { width: 16px; height: 16px; font-size: 10px; }',
+      '.stage-area { min-height: 240px; max-height: none; aspect-ratio: 1 / 1; width: 80%; margin: 0 auto; padding: 0; }',
+      '.stages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }',
+      '.stage-arrow { display: none; }',
+      '.stage { padding: 10px 8px; min-height: 56px; }',
+      '.stage .name { font-size: 11px; font-weight: 600; }',
+      '.stage .ja { font-size: 9px; margin-top: 2px; }',
+      '.stage:nth-child(5) { grid-column: 1 / -1; }',
+      '.detail { padding: 16px 12px; }',
+      '.detail h2 { font-size: 15px; }',
+      '.detail p { font-size: 11px; line-height: 1.6; }',
+      '.detail ul { padding-left: 16px; }',
+      '.detail li { font-size: 11px; line-height: 1.5; }'
+    ].join('\n');
+    document.head.appendChild(s);
+  }
+})();
+  </script>
 </body>
 </html>
