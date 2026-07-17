@@ -60,62 +60,70 @@ img{display:block;width:100%}
 .hero-bottom p{max-width:660px;margin:0;font-size:clamp(14px,1.25vw,18px);line-height:1.95;font-weight:500}
 .jump-link{min-width:230px;padding:14px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--katsu);color:var(--katsu);font-size:13px;font-weight:700}
 .jump-link span{font-size:19px}
-.service-story{position:relative;height:300vh;background:var(--panel)}
-.story-stage{
-  position:sticky;top:0;height:100svh;padding:calc(var(--header) + 30px) clamp(18px,4.5vw,72px) 34px;
-  display:grid;grid-template-columns:minmax(210px,.58fr) minmax(0,1.75fr);gap:clamp(28px,5vw,88px);overflow:hidden
+.services{background:var(--panel)}
+.service-pillar{
+  min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  background:var(--panel);border-bottom:1px solid var(--rule);scroll-margin-top:var(--header)
 }
-.story-rail{min-width:0;padding-bottom:5px;display:flex;flex-direction:column;justify-content:space-between}
-.story-rail h2{margin:16px 0 0;color:var(--katsu);font:600 clamp(23px,2.2vw,34px)/1.5 var(--serif)}
-.step-list{display:grid;border-top:1px solid var(--rule)}
-.step{
-  appearance:none;width:100%;padding:13px 2px;border:0;border-bottom:1px solid var(--rule);
-  display:grid;grid-template-columns:42px 1fr;text-align:left;color:rgba(82,75,75,.46);background:transparent;
-  cursor:pointer;transition:color .25s,padding-left .25s
+.pillar-visual{position:relative;min-width:0;min-height:760px;margin:0;overflow:hidden;background:var(--katsu)}
+.pillar-visual img{height:100%;object-fit:cover;filter:saturate(.82) contrast(1.03);transition:transform .8s ease,filter .5s ease}
+.service-pillar:hover .pillar-visual img{transform:scale(1.018);filter:saturate(1) contrast(1.02)}
+.pillar-visual figcaption{
+  position:absolute;right:18px;bottom:18px;padding:7px 10px;color:var(--white);
+  background:rgba(24,27,57,.88);font-size:8px;font-weight:700
 }
-.step:hover,.step:focus-visible,.step.is-active{color:var(--katsu)}
-.step:hover,.step:focus-visible{padding-left:6px}
-.step span{font-size:10px;font-weight:700}
-.step em{font-size:12px;font-style:normal;font-weight:600}
-.progress{display:grid;gap:8px}
-.progress-meta{display:flex;justify-content:space-between;color:var(--katsu);font-size:9px;font-weight:700}
-.progress-track{height:2px;background:rgba(24,27,57,.13);overflow:hidden}
-.progress-track i{display:block;width:0;height:100%;background:var(--katsu)}
-.deck-wrap{position:relative;min-width:0;display:grid;place-items:center}
-.deck{position:relative;width:min(100%,960px);height:min(68svh,620px);perspective:1500px;transform-style:preserve-3d}
-.service-card{
-  position:absolute;inset:0;display:grid;grid-template-columns:43% 39% 18%;overflow:hidden;
-  border:1px solid rgba(24,27,57,.72);border-radius:2px;box-shadow:0 18px 44px rgba(24,27,57,.14);
-  transform-origin:50% 0;will-change:transform,opacity
+.pillar-content{
+  position:relative;min-width:0;padding:92px clamp(44px,6vw,104px);
+  display:flex;flex-direction:column;justify-content:center;overflow:hidden
 }
-.card-one{color:var(--katsu);background:var(--white)}
-.card-two{color:var(--white);background:var(--katsu)}
-.pillar-main{min-width:0;padding:clamp(22px,2.8vw,42px);display:flex;flex-direction:column}
-.pillar-meta{display:flex;justify-content:space-between;font-size:9px;font-weight:700}
-.pillar-main h3{margin:clamp(18px,2.6vh,32px) 0 14px;font:600 clamp(25px,2.65vw,41px)/1.28 var(--serif)}
-.pillar-lead{margin:0;font-size:clamp(10px,.9vw,13px);line-height:1.85;font-weight:500}
-.change-unit{margin:15px 0 0;padding:9px 0;border-top:1px solid currentColor;border-bottom:1px solid currentColor;font-size:10px;font-weight:700}
-.change-unit span{margin-right:12px;font-size:8px;text-transform:uppercase}
-.outcome{margin-top:auto;padding-top:15px;display:grid;grid-template-columns:52px 1fr;gap:8px;border-top:1px solid currentColor}
-.outcome>span{font-size:8px;font-weight:700}
-.outcome p{margin:0;font-size:10px;line-height:1.65;font-weight:500}
-.outcome strong{font-weight:800}
-.pillar-scope{min-width:0;padding:clamp(22px,2.4vw,36px);display:flex;flex-direction:column;border-left:1px solid currentColor}
-.scope-label{margin:0 0 9px;font-size:9px;font-weight:700;text-transform:uppercase}
-.scope-list{list-style:none;margin:0;padding:0;border-top:1px solid currentColor}
-.scope-list li{min-height:40px;display:grid;grid-template-columns:29px 1fr;align-items:center;border-bottom:1px solid currentColor}
-.scope-list span{font-size:8px;font-weight:700}
-.scope-list p{margin:0;font-size:clamp(9px,.79vw,11.5px);line-height:1.4;font-weight:700}
-.pillar-note{margin-top:auto;padding-top:12px;display:grid;grid-template-columns:80px 1fr;gap:8px}
-.pillar-note span{font-size:7px;font-weight:700}
-.pillar-note p{margin:0;font-size:8.5px;line-height:1.5;font-weight:600}
-.card-media{position:relative;min-width:0;margin:0;overflow:hidden;background:var(--katsu);border-left:1px solid currentColor}
-.card-media img{height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.08);opacity:.82;transition:transform .8s,filter .5s}
-.service-card:hover .card-media img{transform:scale(1.035);filter:grayscale(35%) contrast(1.05)}
-.card-media figcaption{position:absolute;right:9px;bottom:9px;padding:6px;color:var(--white);background:var(--katsu);font-size:7px;font-weight:700}
-.deck-count{position:absolute;right:0;bottom:4px;width:145px;display:flex;align-items:center;gap:10px;transform:translateY(100%);color:var(--katsu);font-size:9px;font-weight:700}
-.deck-count i{flex:1;height:1px;background:var(--katsu)}
-.scroll-note{position:absolute;left:0;bottom:4px;margin:0;transform:translateY(100%);color:var(--katsu);font-size:8px;font-weight:700}
+.pillar-content:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.34;
+  background-image:linear-gradient(rgba(110,128,182,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(110,128,182,.12) 1px,transparent 1px);
+  background-size:96px 96px
+}
+.pillar-content>*{position:relative;z-index:1}
+.pillar-regenerative .pillar-visual{grid-column:2;grid-row:1}
+.pillar-regenerative .pillar-content{grid-column:1;grid-row:1}
+.section-mark{width:64px;height:3px;margin:24px 0 30px;background:var(--ajisai)}
+.pillar-content h2{
+  max-width:780px;margin:0;color:var(--katsu);font:600 64px/1.06 var(--serif);
+  overflow-wrap:normal
+}
+.pillar-intro{margin:27px 0 0;color:var(--katsu);font:600 21px/1.75 var(--serif)}
+.pillar-intro strong{font-weight:700}
+.pillar-summary{max-width:680px;margin:26px 0 0;color:#63677a;font-size:14px;line-height:2;font-weight:500}
+.pillar-unit{
+  margin:20px 0 0;padding-left:14px;border-left:3px solid var(--ajisai);
+  color:var(--katsu);font-size:12px;font-weight:700
+}
+.pillar-unit span{margin-right:14px;color:var(--ajisai-deep);font-size:9px;text-transform:uppercase}
+.service-tags{list-style:none;max-width:760px;margin:25px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.service-tags li{
+  max-width:100%;padding:7px 11px;border:1px solid #cfd5e3;border-radius:2px;
+  color:var(--ajisai-deep);background:rgba(255,255,255,.72);font-size:10.5px;line-height:1.45;font-weight:600
+}
+.pillar-result{
+  max-width:760px;margin:24px 0 0;padding:16px 0 0;display:grid;grid-template-columns:92px 1fr;gap:16px;
+  border-top:1px solid #c9cfdd
+}
+.pillar-result>span{color:var(--ajisai-deep);font-size:8px;font-weight:800}
+.pillar-result p{margin:0;color:#626779;font-size:11px;line-height:1.75;font-weight:500}
+.pillar-result strong{color:var(--katsu);font-weight:800}
+.service-action{
+  width:min(100%,370px);margin-top:30px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;
+  color:var(--white);background:var(--katsu);border:1px solid var(--katsu);border-radius:2px;font-size:12px;font-weight:700;
+  transition:background .25s,border-color .25s
+}
+.service-action:hover,.service-action:focus-visible{background:var(--katsu-hover);border-color:var(--katsu-hover)}
+.service-action span{font-size:18px}
+@media(max-width:1200px) and (min-width:901px){
+  .pillar-content{padding-left:48px;padding-right:48px}
+  .pillar-content h2{font-size:50px}
+  .pillar-intro{font-size:18px}
+  .pillar-summary{font-size:12.5px}
+  .service-tags{gap:6px}
+  .service-tags li{padding:6px 9px;font-size:9.5px}
+}
 .approach{padding:clamp(82px,10vw,150px) clamp(20px,5vw,80px) 72px;color:var(--white);background:var(--katsu)}
 .approach .eyebrow{color:var(--hakunando)}
 .approach-head{margin-top:36px;display:grid;grid-template-columns:1.4fr .6fr;gap:8vw;align-items:end}
@@ -143,34 +151,23 @@ img{display:block;width:100%}
   .hero h1 span{margin-left:0}
   .hero-bottom{align-items:stretch;flex-direction:column;gap:20px}
   .jump-link{width:100%;min-width:0}
-  .story-stage{display:block;padding:calc(var(--header) + 17px) 13px 29px}
-  .story-rail{height:18%;padding:0 3px;display:grid;grid-template-columns:1fr 110px;align-items:start}
-  .story-rail h2{margin-top:7px;font-size:17px;line-height:1.35}
-  .step-list{display:none}
-  .progress{align-self:start}
-  .deck-wrap{height:79%;display:flex;align-items:center}
-  .deck{width:100%;height:min(72svh,650px)}
-  .service-card{grid-template-columns:1fr;grid-template-rows:48% 52%}
-  .card-media{display:none}
-  .pillar-main{grid-row:1;padding:15px 16px 9px}
-  .pillar-meta{font-size:7px}
-  .pillar-main h3{margin:9px 0 6px;font-size:clamp(18px,5.2vw,25px);line-height:1.22}
-  .pillar-lead{font-size:9.5px;line-height:1.55}
-  .change-unit{margin-top:7px;padding:5px 0;font-size:8.5px}
-  .change-unit span{margin-right:8px;font-size:7px}
-  .outcome{margin-top:7px;padding-top:7px;grid-template-columns:38px 1fr}
-  .outcome p{font-size:8.5px;line-height:1.45}
-  .pillar-scope{grid-row:2;padding:9px 16px 13px;border-left:0;border-top:1px solid currentColor}
-  .scope-label{margin-bottom:5px;font-size:7px}
-  .scope-list{display:grid;grid-template-columns:1fr 1fr}
-  .scope-list li{min-height:30px;grid-template-columns:23px 1fr;padding-right:5px}
-  .scope-list li:nth-child(odd){border-right:1px solid currentColor}
-  .scope-list li:nth-child(even){padding-left:7px}
-  .scope-list span{font-size:7px}
-  .scope-list p{font-size:8.5px;line-height:1.3}
-  .pillar-note{margin-top:7px;padding-top:6px;grid-template-columns:68px 1fr}
-  .pillar-note p{font-size:7.5px;line-height:1.4}
-  .scroll-note{display:none}
+  .service-pillar{min-height:0;display:flex;flex-direction:column}
+  .pillar-visual,.pillar-regenerative .pillar-visual{
+    order:1;grid-column:auto;grid-row:auto;width:100%;min-height:52svh;max-height:620px
+  }
+  .pillar-content,.pillar-regenerative .pillar-content{
+    order:2;grid-column:auto;grid-row:auto;padding:58px 20px 66px
+  }
+  .section-mark{width:48px;margin:18px 0 24px}
+  .pillar-content h2{font-size:40px;line-height:1.08}
+  .pillar-intro{margin-top:22px;font-size:18px;line-height:1.7}
+  .pillar-summary{margin-top:20px;font-size:12.5px;line-height:1.9}
+  .pillar-unit{margin-top:17px}
+  .service-tags{margin-top:22px;gap:7px}
+  .service-tags li{font-size:10px}
+  .pillar-result{margin-top:22px;grid-template-columns:78px 1fr;gap:10px}
+  .service-action{margin-top:28px}
+  .pillar-visual figcaption{right:12px;bottom:12px}
   .approach-head{grid-template-columns:1fr;gap:28px}
   .process{grid-template-columns:1fr 1fr}
   .process div{min-height:150px;border-bottom:1px solid rgba(255,255,255,.18)}
@@ -180,8 +177,10 @@ img{display:block;width:100%}
 }
 @media(max-width:430px){
   .header-cta{gap:12px;padding:10px 12px}
-  .deck{height:72svh}
-  .pillar-main h3{font-size:5.2vw}
+  .pillar-content h2{font-size:34px}
+  .pillar-intro{font-size:16px}
+  .pillar-result{grid-template-columns:1fr}
+  .pillar-result>span{margin-bottom:-4px}
   .process{grid-template-columns:1fr}
   .process div{min-height:125px;padding-left:0!important;border-right:0}
 }
@@ -208,93 +207,70 @@ img{display:block;width:100%}
     <h1><small>業務変革・AI活用支援</small>業務を整え、<span>AIが働く組織へ。</span></h1>
     <div class="hero-bottom">
       <p>現場の業務整理からAIエージェント導入、運用代行、組織への定着まで。変革を構想で終わらせず、実務として動かします。</p>
-      <a class="jump-link" href="#services">支援領域を見る <span aria-hidden="true">↓</span></a>
+      <a class="jump-link" href="#services">2つの事業柱を見る <span aria-hidden="true">↓</span></a>
     </div>
   </section>
 
-  <section class="service-story" id="services">
-    <div class="story-stage">
-      <aside class="story-rail">
-        <div>
-          <p class="eyebrow">Our Services</p>
-          <h2>企業と社会を変える<br>2つの事業柱</h2>
+  <section class="services" id="services" aria-label="Our Services">
+    <article class="service-pillar pillar-rewiring" id="business-rewiring">
+      <figure class="pillar-visual">
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=88" alt="業務と組織の再設計について議論するプロジェクトチーム">
+        <figcaption>BUSINESS REWIRING / 01</figcaption>
+      </figure>
+      <div class="pillar-content">
+        <p class="eyebrow">Our Services / 01</p>
+        <span class="section-mark" aria-hidden="true"></span>
+        <h2>Business Rewiring</h2>
+        <p class="pillar-intro">会社の中を変える。<br><strong>業務・組織・知識・AIを再設計する企業変革。</strong></p>
+        <p class="pillar-summary">既存企業の内部を変革する事業です。属人化した業務と知識を整え、人とAIが協働して成長できる企業へ変えます。</p>
+        <p class="pillar-unit"><span>変革単位</span>会社・組織・業務</p>
+        <ul class="service-tags" aria-label="Business Rewiringの対象領域">
+          <li>業務棚卸し・業務診断</li>
+          <li>運用手順書・マニュアル・業務フロー整備</li>
+          <li>ナレッジ・データ整理</li>
+          <li>AI活用基盤整備</li>
+          <li>AX・AIエージェント導入</li>
+          <li>AI BPO・運用代行</li>
+          <li>組織設計・AIガバナンス</li>
+          <li>リスキリング・定着支援</li>
+        </ul>
+        <div class="pillar-result">
+          <span>目指す状態</span>
+          <p>成果物は「AIを導入した状態」ではなく、<strong>業務が再現でき、現場で使われ、改善が回る状態</strong>です。</p>
         </div>
-        <div class="step-list" aria-label="事業柱を選択">
-          <button class="step is-active" type="button" data-step="0"><span>01</span><em>Business Rewiring</em></button>
-          <button class="step" type="button" data-step="1"><span>02</span><em>Regenerative Transformation</em></button>
-        </div>
-        <div class="progress">
-          <div class="progress-meta"><span>SCROLL PROGRESS</span><strong id="progressText">00%</strong></div>
-          <div class="progress-track"><i id="progressBar"></i></div>
-        </div>
-      </aside>
-
-      <div class="deck-wrap">
-        <div class="deck" aria-live="polite">
-          <article class="service-card card-one" data-card style="z-index:2">
-            <div class="pillar-main">
-              <div class="pillar-meta"><span>01 / 02</span><span>BUSINESS REWIRING</span></div>
-              <h3>業務・組織・知識・AIを<br>再設計する企業変革</h3>
-              <p class="pillar-lead">既存企業の内部を変革する事業です。属人化した業務と知識を整え、人とAIが協働して成長できる企業へ変えます。</p>
-              <p class="change-unit"><span>変革単位</span>会社・組織・業務</p>
-              <div class="outcome">
-                <span>GOAL</span>
-                <p>成果物は「AIを導入した状態」ではなく、<strong>業務が再現でき、現場で使われ、改善が回る状態</strong>です。</p>
-              </div>
-            </div>
-            <div class="pillar-scope">
-              <p class="scope-label">Target Areas</p>
-              <ol class="scope-list">
-                <li><span>01</span><p>業務棚卸し・業務診断</p></li>
-                <li><span>02</span><p>運用手順書・マニュアル・業務フロー整備</p></li>
-                <li><span>03</span><p>ナレッジ・データ整理</p></li>
-                <li><span>04</span><p>AI活用基盤整備</p></li>
-                <li><span>05</span><p>AX・AIエージェント導入</p></li>
-                <li><span>06</span><p>AI BPO・運用代行</p></li>
-                <li><span>07</span><p>組織設計・AIガバナンス</p></li>
-                <li><span>08</span><p>リスキリング・定着支援</p></li>
-              </ol>
-            </div>
-            <figure class="card-media">
-              <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85" alt="業務と組織を再設計するプロジェクトチーム">
-              <figcaption>REWIRING / 01</figcaption>
-            </figure>
-          </article>
-
-          <article class="service-card card-two" data-card style="z-index:1">
-            <div class="pillar-main">
-              <div class="pillar-meta"><span>02 / 02</span><span>REGENERATIVE TRANSFORMATION</span></div>
-              <h3>企業・地域・人が価値を生み続ける<br>仕組みをつくる共創型変革</h3>
-              <p class="pillar-lead">企業の外側にある資産や関係者を組み合わせ、新しい価値を生み出す事業です。企業や地域に眠る資産をつなぎ直し、継続的に価値と収益を生む事業へ変えます。</p>
-              <p class="change-unit"><span>変革単位</span>事業・地域・エコシステム</p>
-            </div>
-            <div class="pillar-scope">
-              <p class="scope-label">Target Areas</p>
-              <ol class="scope-list">
-                <li><span>01</span><p>新規事業構想・事業開発</p></li>
-                <li><span>02</span><p>地域企業・自治体との共創</p></li>
-                <li><span>03</span><p>アグリ・食・観光・地方創生</p></li>
-                <li><span>04</span><p>遊休地・施設・技術・顧客基盤の事業化</p></li>
-                <li><span>05</span><p>PoC・MVP・初期顧客開拓</p></li>
-                <li><span>06</span><p>JV・レベニューシェア設計</p></li>
-                <li><span>07</span><p>事業会社・金融機関・専門家との連携</p></li>
-                <li><span>08</span><p>Capital Readiness・事業化PMO</p></li>
-              </ol>
-              <div class="pillar-note">
-                <span>CAPITAL READINESS</span>
-                <p>事業構想を、投資・融資・提携・運営が可能な状態まで整える事業化PMO</p>
-              </div>
-            </div>
-            <figure class="card-media">
-              <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=85" alt="地域資産をつなぎ新しい価値を育てる風景">
-              <figcaption>REGENERATIVE / 02</figcaption>
-            </figure>
-          </article>
-        </div>
-        <div class="deck-count"><span id="cardNumber">01</span><i></i><span>02</span></div>
-        <p class="scroll-note">↓ SCROLL TO EXPLORE</p>
+        <a class="service-action" href="https://nouma.co.jp/#contact">標準化・AX・実行支援について相談する <span aria-hidden="true">→</span></a>
       </div>
-    </div>
+    </article>
+
+    <article class="service-pillar pillar-regenerative" id="regenerative-transformation">
+      <figure class="pillar-visual">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=88" alt="地域の資産を生かし新たな事業を育てる現場">
+        <figcaption>REGENERATIVE TRANSFORMATION / 02</figcaption>
+      </figure>
+      <div class="pillar-content">
+        <p class="eyebrow">Our Services / 02</p>
+        <span class="section-mark" aria-hidden="true"></span>
+        <h2>Regenerative<br>Transformation</h2>
+        <p class="pillar-intro">会社の外に、次を生む。<br><strong>企業・地域・人が価値を生み続ける仕組みをつくる共創型変革。</strong></p>
+        <p class="pillar-summary">企業の外側にある資産や関係者を組み合わせ、新しい価値を生み出す事業です。企業や地域に眠る資産をつなぎ直し、継続的に価値と収益を生む事業へ変えます。</p>
+        <p class="pillar-unit"><span>変革単位</span>事業・地域・エコシステム</p>
+        <ul class="service-tags" aria-label="Regenerative Transformationの対象領域">
+          <li>新規事業構想・事業開発</li>
+          <li>地域企業・自治体との共創</li>
+          <li>アグリ・食・観光・地方創生</li>
+          <li>遊休地・施設・技術・顧客基盤の事業化</li>
+          <li>PoC・MVP・初期顧客開拓</li>
+          <li>JV・レベニューシェア設計</li>
+          <li>事業会社・金融機関・専門家との連携</li>
+          <li>Capital Readiness・事業化PMO</li>
+        </ul>
+        <div class="pillar-result">
+          <span>CAPITAL READINESS</span>
+          <p>事業構想を、投資・融資・提携・運営が可能な状態まで整える事業化PMO。</p>
+        </div>
+        <a class="service-action" href="https://nouma.co.jp/#contact">事業共創について相談する <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
   </section>
 
   <section class="approach" id="approach">
@@ -322,85 +298,5 @@ img{display:block;width:100%}
   <p>© Nouma, Inc.</p>
 </footer>
 
-<script>
-(function(){
-  const story=document.querySelector(".service-story");
-  const cards=[...document.querySelectorAll("[data-card]")];
-  const steps=[...document.querySelectorAll("[data-step]")];
-  const progressBar=document.getElementById("progressBar");
-  const progressText=document.getElementById("progressText");
-  const cardNumber=document.getElementById("cardNumber");
-  const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
-  let ticking=false;
-  let lastActive=-1;
-
-  const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
-
-  function render(){
-    const rect=story.getBoundingClientRect();
-    const travel=Math.max(1,story.offsetHeight-window.innerHeight);
-    const progress=clamp(-rect.top/travel,0,1);
-    const position=clamp(progress*cards.length,0,cards.length-1);
-    const active=clamp(Math.floor(position+.48),0,cards.length-1);
-
-    cards.forEach((card,index)=>{
-      const relative=index-position;
-      let transform;
-      let opacity=1;
-
-      if(reducedMotion.matches){
-        transform="translate3d(0,0,0)";
-        opacity=index===active?1:0;
-      }else if(relative<0){
-        const exit=clamp(-relative,0,1);
-        transform=`translate3d(0,${-118*exit}%,0) rotateX(${12*exit}deg) rotateZ(${-2.2*exit}deg)`;
-        opacity=1-clamp((exit-.68)/.24,0,1);
-      }else{
-        const depth=clamp(relative,0,3.2);
-        transform=`translate3d(0,${depth*19}px,${-depth*24}px) scale(${1-depth*.026})`;
-        opacity=depth>3?0:1;
-      }
-
-      card.style.transform=transform;
-      card.style.opacity=opacity;
-      card.style.visibility=opacity<=0?"hidden":"visible";
-      card.setAttribute("aria-hidden",index===active?"false":"true");
-    });
-
-    progressBar.style.width=`${Math.round(progress*100)}%`;
-    progressText.textContent=`${String(Math.round(progress*100)).padStart(2,"0")}%`;
-    cardNumber.textContent=String(active+1).padStart(2,"0");
-
-    if(active!==lastActive){
-      steps.forEach((step,index)=>{
-        step.classList.toggle("is-active",index===active);
-        step.setAttribute("aria-current",index===active?"step":"false");
-      });
-      lastActive=active;
-    }
-    ticking=false;
-  }
-
-  function requestRender(){
-    if(!ticking){
-      window.requestAnimationFrame(render);
-      ticking=true;
-    }
-  }
-
-  steps.forEach((step,index)=>{
-    step.addEventListener("click",()=>{
-      const travel=story.offsetHeight-window.innerHeight;
-      const destination=story.offsetTop+travel*(index/cards.length)+4;
-      window.scrollTo({top:destination,behavior:reducedMotion.matches?"auto":"smooth"});
-    });
-  });
-
-  window.addEventListener("scroll",requestRender,{passive:true});
-  window.addEventListener("resize",requestRender);
-  reducedMotion.addEventListener?.("change",requestRender);
-  render();
-})();
-</script>
 </body>
 </html>
