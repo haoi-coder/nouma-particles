@@ -60,7 +60,49 @@ img{display:block;width:100%}
 .hero-bottom p{max-width:660px;margin:0;font-size:clamp(14px,1.25vw,18px);line-height:1.95;font-weight:500}
 .jump-link{min-width:230px;padding:14px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--katsu);color:var(--katsu);font-size:13px;font-weight:700}
 .jump-link span{font-size:19px}
-.services{background:var(--panel)}
+.services{position:relative;background:var(--panel)}
+.services-stage{position:relative}
+.page-turn-status{display:none}
+@media(min-width:901px){
+  html.page-motion .services{height:300vh}
+  html.page-motion .services-stage{
+    position:sticky;top:0;height:100svh;overflow:hidden;
+    background:var(--panel);perspective:1600px;transform-style:preserve-3d
+  }
+  html.page-motion .service-pillar{
+    position:absolute;inset:var(--header) 0 0;height:calc(100svh - var(--header));min-height:0;
+    transform-origin:50% 0;will-change:transform,opacity;backface-visibility:hidden
+  }
+  html.page-motion .service-pillar:first-child{z-index:2}
+  html.page-motion .service-pillar:nth-child(2){z-index:1}
+  html.page-motion .pillar-visual{min-height:0}
+  html.page-motion .page-turn-status{
+    position:absolute;z-index:5;right:22px;bottom:18px;width:154px;
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;
+    color:var(--katsu);font-size:9px;font-weight:800;pointer-events:none
+  }
+  html.page-motion .page-turn-status i{height:2px;overflow:hidden;background:rgba(24,27,57,.18)}
+  html.page-motion .page-turn-status i:after{
+    content:"";display:block;width:100%;height:100%;background:var(--katsu);
+    transform:scaleX(var(--page-progress,0));transform-origin:left center
+  }
+  html.page-motion .page-turn-status small{
+    position:absolute;right:0;bottom:17px;color:var(--ajisai-deep);font-size:7px
+  }
+}
+@media(min-width:901px) and (max-height:820px){
+  html.page-motion .pillar-content{padding-top:38px;padding-bottom:38px}
+  html.page-motion .section-mark{margin-top:14px;margin-bottom:17px}
+  html.page-motion .pillar-content h2{font-size:46px}
+  html.page-motion .pillar-intro{margin-top:15px;font-size:16px;line-height:1.55}
+  html.page-motion .pillar-summary{margin-top:13px;font-size:11.5px;line-height:1.65}
+  html.page-motion .pillar-unit{margin-top:10px}
+  html.page-motion .service-tags{margin-top:13px;gap:5px}
+  html.page-motion .service-tags li{padding:5px 8px;font-size:9px}
+  html.page-motion .pillar-result{margin-top:13px;padding-top:10px}
+  html.page-motion .pillar-result p{font-size:9.5px;line-height:1.5}
+  html.page-motion .service-action{margin-top:15px;padding-top:13px;padding-bottom:13px}
+}
 .service-pillar{
   min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   background:var(--panel);border-bottom:1px solid var(--rule);scroll-margin-top:var(--header)
@@ -212,7 +254,8 @@ img{display:block;width:100%}
   </section>
 
   <section class="services" id="services" aria-label="Our Services">
-    <article class="service-pillar pillar-rewiring" id="business-rewiring">
+    <div class="services-stage">
+      <article class="service-pillar pillar-rewiring" id="business-rewiring" data-service-page>
       <figure class="pillar-visual">
         <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=88" alt="業務と組織の再設計について議論するプロジェクトチーム">
         <figcaption>BUSINESS REWIRING / 01</figcaption>
@@ -242,7 +285,7 @@ img{display:block;width:100%}
       </div>
     </article>
 
-    <article class="service-pillar pillar-regenerative" id="regenerative-transformation">
+      <article class="service-pillar pillar-regenerative" id="regenerative-transformation" data-service-page>
       <figure class="pillar-visual">
         <img loading="lazy" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=88" alt="地域の資産を生かし新たな事業を育てる現場">
         <figcaption>REGENERATIVE TRANSFORMATION / 02</figcaption>
@@ -270,7 +313,11 @@ img{display:block;width:100%}
         </div>
         <a class="service-action" href="https://nouma.co.jp/#contact">事業共創について相談する <span aria-hidden="true">→</span></a>
       </div>
-    </article>
+      </article>
+      <div class="page-turn-status" aria-hidden="true">
+        <span id="servicePageNumber">01</span><i></i><span>02</span><small>SCROLL TO TURN</small>
+      </div>
+    </div>
   </section>
 
   <section class="approach" id="approach">
@@ -298,5 +345,79 @@ img{display:block;width:100%}
   <p>© Nouma, Inc.</p>
 </footer>
 
+<script>
+(function(){
+  const root=document.documentElement;
+  const scene=document.querySelector(".services");
+  const pages=[...document.querySelectorAll("[data-service-page]")];
+  const pageNumber=document.getElementById("servicePageNumber");
+  const desktop=window.matchMedia("(min-width: 901px)");
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
+  let enabled=false;
+  let ticking=false;
+
+  const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+  const ease=value=>value*value*(3-2*value);
+
+  function clearMotion(){
+    pages.forEach(page=>{
+      page.style.removeProperty("transform");
+      page.style.removeProperty("opacity");
+      page.style.removeProperty("visibility");
+      page.removeAttribute("aria-hidden");
+    });
+    scene.style.removeProperty("--page-progress");
+  }
+
+  function render(){
+    if(!enabled){
+      clearMotion();
+      ticking=false;
+      return;
+    }
+
+    const rect=scene.getBoundingClientRect();
+    const travel=Math.max(1,scene.offsetHeight-window.innerHeight);
+    const progress=clamp(-rect.top/travel,0,1);
+    const turn=ease(clamp((progress-.16)/.48,0,1));
+    const firstOpacity=1-clamp((turn-.76)/.2,0,1);
+    const active=turn<.52?0:1;
+
+    pages[0].style.transform=`translate3d(0,${-106*turn}%,0) rotateX(${11*turn}deg) rotateZ(${-1.4*turn}deg)`;
+    pages[0].style.opacity=firstOpacity;
+    pages[0].style.visibility=firstOpacity<=0?"hidden":"visible";
+
+    const depth=1-turn;
+    pages[1].style.transform=`translate3d(0,${28*depth}px,${-42*depth}px) scale(${1-.035*depth})`;
+    pages[1].style.opacity=.72+.28*turn;
+    pages[1].style.visibility="visible";
+
+    pages.forEach((page,index)=>page.setAttribute("aria-hidden",index===active?"false":"true"));
+    pageNumber.textContent=active===0?"01":"02";
+    scene.style.setProperty("--page-progress",String(turn));
+    ticking=false;
+  }
+
+  function requestRender(){
+    if(!ticking){
+      ticking=true;
+      window.requestAnimationFrame(render);
+    }
+  }
+
+  function syncMode(){
+    enabled=desktop.matches&&!reduced.matches;
+    root.classList.toggle("page-motion",enabled);
+    if(!enabled) clearMotion();
+    requestRender();
+  }
+
+  window.addEventListener("scroll",requestRender,{passive:true});
+  window.addEventListener("resize",requestRender);
+  desktop.addEventListener?.("change",syncMode);
+  reduced.addEventListener?.("change",syncMode);
+  syncMode();
+})();
+</script>
 </body>
 </html>
